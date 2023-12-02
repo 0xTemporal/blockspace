@@ -1,4 +1,4 @@
-import { Skeleton } from '@nextui-org/react';
+import { Skeleton } from '@nextui-org/react'
 
 export default function PostSkeleton() {
   return (
@@ -13,5 +13,5 @@ export default function PostSkeleton() {
         <Skeleton className="h-3 w-4/5 rounded-lg" />
       </div>
     </div>
-  );
+  )
 }

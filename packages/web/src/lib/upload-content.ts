@@ -1,15 +1,15 @@
-import Irys from '@irys/sdk';
-import { WalletContextState } from '@solana/wallet-adapter-react';
-import crypto from 'crypto';
-import toast from 'react-hot-toast';
-import slugify from 'slugify';
+import Irys from '@irys/sdk'
+import { WalletContextState } from '@solana/wallet-adapter-react'
+import crypto from 'crypto'
+import toast from 'react-hot-toast'
+import slugify from 'slugify'
 
 export interface ContentPayload {
-  title: string;
-  image_url: string;
-  description: string;
-  content: string;
-  type: string;
+  title: string
+  image_url: string
+  description: string
+  content: string
+  type: string
 }
 
 export const uploadContent = async (
@@ -20,28 +20,28 @@ export const uploadContent = async (
   parentDigest?: string,
 ) => {
   if (!wallet.signMessage) {
-    toast.error('Sorry, your wallet does not support message signature');
-    return;
+    toast.error('Sorry, your wallet does not support message signature')
+    return
   }
 
-  if (!wallet.publicKey) return;
+  if (!wallet.publicKey) return
 
-  const contentDigest = crypto.createHash('sha256').update(JSON.stringify(data.content)).digest().toString('hex');
+  const contentDigest = crypto.createHash('sha256').update(JSON.stringify(data.content)).digest().toString('hex')
 
-  const contentSignature = await wallet.signMessage(new TextEncoder().encode(contentDigest));
-  if (!contentSignature) return;
-  const contentSignatureString = Buffer.from(contentSignature).toString('base64');
+  const contentSignature = await wallet.signMessage(new TextEncoder().encode(contentDigest))
+  if (!contentSignature) return
+  const contentSignatureString = Buffer.from(contentSignature).toString('base64')
 
-  let mut_slug = '';
+  let mut_slug = ''
 
-  const { title, image_url, description } = data;
-  if (title) mut_slug = title;
-  if (!title) mut_slug = 'Untitled Article ' + Date.now();
+  const { title, image_url, description } = data
+  if (title) mut_slug = title
+  if (!title) mut_slug = 'Untitled Article ' + Date.now()
 
   const sanitizedSlug = slugify(mut_slug, {
     lower: true,
     remove: /[^A-Za-z0-9\s]/g,
-  });
+  })
 
   const finalData = {
     ...data,
@@ -57,7 +57,7 @@ export const uploadContent = async (
     signatureEncoding: 'base64',
     digestEncoding: 'hex',
     parentDigest: parentDigest || '',
-  };
+  }
 
   const tags = [
     { name: 'Content-Type', value: 'application/json' },
@@ -72,21 +72,21 @@ export const uploadContent = async (
     { name: 'Profile Account', value: profileAccount },
     { name: 'Post Account', value: postAccount },
     { name: 'Parent Digest', value: parentDigest || '' },
-  ];
+  ]
 
-  const userSignature = await wallet.signMessage(new Uint8Array(3));
-  if (!userSignature) return;
+  const userSignature = await wallet.signMessage(new Uint8Array(3))
+  if (!userSignature) return
 
   const irys = new Irys({
     url: 'https://devnet.irys.xyz',
     token: 'sol',
     key: '',
     config: { providerUrl: process.env.HELIUS_API_URL },
-  });
+  })
 
-  const uploaded = await irys.upload('', {});
+  const uploaded = await irys.upload('', {})
 
-  const success = await uploaded.verify();
+  const success = await uploaded.verify()
 
-  return success;
-};
+  return success
+}

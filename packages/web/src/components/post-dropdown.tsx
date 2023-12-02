@@ -1,6 +1,6 @@
-'use client';
+'use client'
 
-import code from '@code-wallet/elements';
+import code from '@code-wallet/elements'
 import {
   Button,
   Dropdown,
@@ -14,24 +14,24 @@ import {
   ModalFooter,
   ModalHeader,
   useDisclosure,
-} from '@nextui-org/react';
-import { useEffect, useMemo, useRef, useState } from 'react';
-import { LuMoreHorizontal } from 'react-icons/lu';
+} from '@nextui-org/react'
+import { useEffect, useMemo, useRef, useState } from 'react'
+import { LuMoreHorizontal } from 'react-icons/lu'
 
-import { useDarkMode } from '../lib/hooks';
+import { useDarkMode } from '../lib/hooks'
 
 export type PostDropdownProps = {
-  author?: string;
-  avatar?: string;
-  children?: React.ReactNode;
-};
+  author?: string
+  avatar?: string
+  children?: React.ReactNode
+}
 
 export const PostDropdown = ({ avatar, author, children }: PostDropdownProps) => {
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
-  const [donationAmount, setDonationAmount] = useState(0.05);
-  const { isDarkMode } = useDarkMode();
+  const { isOpen, onOpen, onOpenChange } = useDisclosure()
+  const [donationAmount, setDonationAmount] = useState(0.05)
+  const { isDarkMode } = useDarkMode()
 
-  const el = useRef<HTMLDivElement>(null);
+  const el = useRef<HTMLDivElement>(null)
 
   const codeCard = useMemo(() => {
     const { card } = code.elements.create('card', {
@@ -39,29 +39,29 @@ export const PostDropdown = ({ avatar, author, children }: PostDropdownProps) =>
       destination: 'E8otxw1CVX9bfyddKu3ZB3BVLa4VVF9J7CTPdnUwT9jR',
       amount: donationAmount,
       appearance: isDarkMode ? 'dark' : 'light',
-    });
+    })
 
     card?.on(
       'cancel',
       (args) =>
         new Promise(() => {
-          console.log(args, 'SDLFKHSDKLFH');
-          card.unmount();
-          el.current?.parentNode?.removeChild(el.current);
+          console.log(args, 'SDLFKHSDKLFH')
+          card.unmount()
+          el.current?.parentNode?.removeChild(el.current)
         }),
-    );
-    return card;
-  }, []);
+    )
+    return card
+  }, [])
 
   useEffect(() => {
     codeCard?.update({
       amount: donationAmount,
-    });
-  }, [donationAmount]);
+    })
+  }, [donationAmount])
 
   const onClickPayWithCode = () => {
-    codeCard?.mount(el.current!);
-  };
+    codeCard?.mount(el.current!)
+  }
 
   return (
     <>
@@ -102,5 +102,5 @@ export const PostDropdown = ({ avatar, author, children }: PostDropdownProps) =>
         </ModalContent>
       </Modal>
     </>
-  );
-};
+  )
+}

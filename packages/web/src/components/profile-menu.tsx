@@ -1,19 +1,19 @@
-import { Avatar, Button, Chip, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger, Switch } from '@nextui-org/react';
-import { signOut } from 'next-auth/react';
-import Link from 'next/link';
-import { useCallback } from 'react';
-import toast from 'react-hot-toast/headless';
-import { LuCog, LuIceCream, LuLogOut, LuMessagesSquare, LuMoon, LuPenSquare, LuSun, LuUser } from 'react-icons/lu';
+import { Avatar, Button, Chip, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger, Switch } from '@nextui-org/react'
+import { signOut } from 'next-auth/react'
+import Link from 'next/link'
+import { useCallback } from 'react'
+import toast from 'react-hot-toast/headless'
+import { LuCog, LuIceCream, LuLogOut, LuMessagesSquare, LuMoon, LuPenSquare, LuSun, LuUser } from 'react-icons/lu'
 
-import { useDarkMode } from '../lib/hooks';
+import { useDarkMode } from '../lib/hooks'
 
 export const ProfileMenu = () => {
-  const { isDarkMode, toggleDarkMode } = useDarkMode();
+  const { isDarkMode, toggleDarkMode } = useDarkMode()
 
   const handleDisconnect = useCallback(async () => {
-    await signOut();
+    await signOut()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [])
 
   return (
     <Dropdown>
@@ -83,5 +83,5 @@ export const ProfileMenu = () => {
         </DropdownItem>
       </DropdownMenu>
     </Dropdown>
-  );
-};
+  )
+}

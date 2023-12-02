@@ -1,17 +1,17 @@
-import { Avatar, Card, Divider, Link } from '@nextui-org/react';
-import { Metadata, ResolvingMetadata } from 'next';
-import { BsTwitterX } from 'react-icons/bs';
-import { LuCake, LuKeyRound } from 'react-icons/lu';
+import { Avatar, Card, Divider, Link } from '@nextui-org/react'
+import { Metadata, ResolvingMetadata } from 'next'
+import { BsTwitterX } from 'react-icons/bs'
+import { LuCake, LuKeyRound } from 'react-icons/lu'
 
-import { ColorBar } from '@/src/components/color-bar';
-import { PostPreview } from '@/src/components/post-preview';
+import { ColorBar } from '@/src/components/color-bar'
+import { PostPreview } from '@/src/components/post-preview'
 
 type Props = {
-  params: { author: string };
-};
+  params: { author: string }
+}
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const author = params.author;
+  const author = params.author
 
   return {
     title: 'Hello world',
@@ -22,13 +22,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       username: 'toly',
       images: 'https://pbs.twimg.com/profile_images/1725588229808889859/L6bOXam6_400x400.jpg',
     },
-  };
+  }
 }
 
 export default async function AuthorPage() {
-  const author = 'toly';
-  const avatar = 'https://pbs.twimg.com/profile_images/1725588229808889859/L6bOXam6_400x400.jpg';
-  const posts = new Array(8).fill(0);
+  const author = 'toly'
+  const avatar = 'https://pbs.twimg.com/profile_images/1725588229808889859/L6bOXam6_400x400.jpg'
+  const posts = new Array(8).fill(0)
 
   return (
     <div className="flex flex-col gap-y-4">
@@ -71,5 +71,5 @@ export default async function AuthorPage() {
         </div>
       </div>
     </div>
-  );
+  )
 }

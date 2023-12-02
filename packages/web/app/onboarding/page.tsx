@@ -1,3 +1,3 @@
 export default function OnboardingPage() {
-  return <div className="container">Onboarding</div>;
+  return <div className="container">Onboarding</div>
 }

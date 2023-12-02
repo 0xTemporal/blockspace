@@ -1,9 +1,9 @@
-import { Card, CardBody } from '@nextui-org/react';
-import { useToaster } from 'react-hot-toast/headless';
+import { Card, CardBody } from '@nextui-org/react'
+import { useToaster } from 'react-hot-toast/headless'
 
 export const Toaster = () => {
-  const { toasts, handlers } = useToaster();
-  const { startPause, endPause, calculateOffset, updateHeight } = handlers;
+  const { toasts, handlers } = useToaster()
+  const { startPause, endPause, calculateOffset, updateHeight } = handlers
 
   return (
     <div className="fixed bottom-16 left-4 z-50" onMouseEnter={startPause} onMouseLeave={endPause}>
@@ -11,14 +11,14 @@ export const Toaster = () => {
         const offset = calculateOffset(toast, {
           reverseOrder: true,
           gutter: 8,
-        });
+        })
 
         const ref = (el) => {
           if (el && typeof toast.height !== 'number') {
-            const height = el.getBoundingClientRect().height;
-            updateHeight(toast.id, height);
+            const height = el.getBoundingClientRect().height
+            updateHeight(toast.id, height)
           }
-        };
+        }
         return (
           <Card
             key={toast.id}
@@ -36,8 +36,8 @@ export const Toaster = () => {
               {toast.message ?? ''}
             </CardBody>
           </Card>
-        );
+        )
       })}
     </div>
-  );
-};
+  )
+}

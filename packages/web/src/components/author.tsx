@@ -1,14 +1,14 @@
-'use client';
+'use client'
 
-import { ColorBar } from './color-bar';
-import { Avatar, Link, Tooltip } from '@nextui-org/react';
-import { BsTwitterX } from 'react-icons/bs';
-import { LuCake, LuKeyRound } from 'react-icons/lu';
+import { ColorBar } from './color-bar'
+import { Avatar, Link, Tooltip } from '@nextui-org/react'
+import { BsTwitterX } from 'react-icons/bs'
+import { LuCake, LuKeyRound } from 'react-icons/lu'
 
 export type AuthorProps = {
-  author: string;
-  avatar: string;
-};
+  author: string
+  avatar: string
+}
 
 export const Author = ({ avatar, author }: AuthorProps) => {
   return (
@@ -66,5 +66,5 @@ export const Author = ({ avatar, author }: AuthorProps) => {
         <span className="text-foreground/60">Today</span>
       </span>
     </div>
-  );
-};
+  )
+}

@@ -1,16 +1,16 @@
-import { Avatar, AvatarGroup, Button, Popover, PopoverContent, PopoverTrigger } from '@nextui-org/react';
-import { useCallback, useState } from 'react';
+import { Avatar, AvatarGroup, Button, Popover, PopoverContent, PopoverTrigger } from '@nextui-org/react'
+import { useCallback, useState } from 'react'
 
 export const MintableBlock = (props) => {
-  const [minting, setMinting] = useState(false);
+  const [minting, setMinting] = useState(false)
 
   const handleMint = useCallback(async () => {
-    setMinting(true);
+    setMinting(true)
 
     setTimeout(() => {
-      setMinting(false);
-    }, 3000);
-  }, []);
+      setMinting(false)
+    }, 3000)
+  }, [])
 
   return (
     <Popover placement="bottom-end" triggerScaleOnOpen={false} classNames={{ trigger: '' }}>
@@ -35,5 +35,5 @@ export const MintableBlock = (props) => {
         </div>
       </PopoverContent>
     </Popover>
-  );
-};
+  )
+}

@@ -1,27 +1,24 @@
-import { router } from '.';
-import { postRouter } from './routers/post';
-import { userRouter } from './routers/user';
-import type { CreateNextContextOptions } from '@trpc/server/adapters/next';
-import { getServerSession } from 'next-auth';
+import { router } from '.'
+import { articleRouter } from './routers/article'
+import { userRouter } from './routers/user'
+import type { CreateNextContextOptions } from '@trpc/server/adapters/next'
 
-import { getNextAuthOptions } from '../lib/auth';
+import { auth } from '../lib/auth'
 
-export const createContext = async ({ req, res, ...rest }: CreateNextContextOptions) => {
-  const session = await getServerSession(req, res, getNextAuthOptions(req));
-
-  console.log(rest);
-  // const db = drizzle(env.Bindings?.DB);
+export const createContext = async ({ req, res }: CreateNextContextOptions) => {
+  const session = await auth()
 
   return {
     session,
     req,
     res,
-  };
-};
+  }
+}
 
 export const appRouter = router({
   user: userRouter,
-  post: postRouter,
-});
+  article: articleRouter,
+})
 
-export type AppRouter = typeof appRouter;
+export type Context = Awaited<ReturnType<typeof createContext>>
+export type AppRouter = typeof appRouter

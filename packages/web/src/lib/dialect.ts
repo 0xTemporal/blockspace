@@ -1,4 +1,4 @@
-import { DialectSolanaWalletAdapter, Solana, SolanaSdkFactory } from '@dialectlabs/blockchain-sdk-solana';
+import { DialectSolanaWalletAdapter, Solana, SolanaSdkFactory } from '@dialectlabs/blockchain-sdk-solana'
 import {
   CreateThreadCommand,
   Dialect,
@@ -6,25 +6,25 @@ import {
   DialectSdk,
   FindThreadByIdQuery,
   Thread,
-} from '@dialectlabs/sdk';
-import { Wallet, WalletContextState } from '@solana/wallet-adapter-react';
+} from '@dialectlabs/sdk'
+import { Wallet, WalletContextState } from '@solana/wallet-adapter-react'
 
-const environment: DialectCloudEnvironment = 'development';
+const environment: DialectCloudEnvironment = 'development'
 
 export class DialectSDK {
-  readonly sdk: DialectSdk<Solana>;
+  readonly sdk: DialectSdk<Solana>
 
   constructor(wallet: Wallet) {
-    this.sdk = createDialectSdk(wallet);
+    this.sdk = createDialectSdk(wallet)
   }
 
-  getAllThreads = async () => await this.sdk.threads.findAll();
+  getAllThreads = async () => await this.sdk.threads.findAll()
 
-  getThread = async (query: FindThreadByIdQuery) => await this.sdk.threads.find(query);
+  getThread = async (query: FindThreadByIdQuery) => await this.sdk.threads.find(query)
 
-  createThread = async (command: CreateThreadCommand) => await this.sdk.threads.create(command);
+  createThread = async (command: CreateThreadCommand) => await this.sdk.threads.create(command)
 
-  deleteThread = async (thread: Thread) => await thread.delete();
+  deleteThread = async (thread: Thread) => await thread.delete()
 }
 
 const createDialectSdk = (wallet: Wallet) =>
@@ -35,11 +35,11 @@ const createDialectSdk = (wallet: Wallet) =>
     SolanaSdkFactory.create({
       wallet,
     }),
-  );
+  )
 
 export const solanaWalletToDialectWallet = (wallet: WalletContextState): DialectSolanaWalletAdapter | null => {
   if (!wallet.connected || wallet.connecting || wallet.disconnecting || !wallet.publicKey) {
-    return null;
+    return null
   }
 
   return {
@@ -51,8 +51,8 @@ export const solanaWalletToDialectWallet = (wallet: WalletContextState): Dialect
     diffieHellman: wallet.wallet?.adapter?._wallet?.diffieHellman
       ? async (pubKey: any) => {
           // @ts-ignore
-          return wallet.wallet?.adapter?._wallet?.diffieHellman(pubKey);
+          return wallet.wallet?.adapter?._wallet?.diffieHellman(pubKey)
         }
       : undefined,
-  };
-};
+  }
+}

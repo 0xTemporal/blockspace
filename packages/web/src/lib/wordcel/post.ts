@@ -1,15 +1,15 @@
-import { SEED_PREFIXES, WORDCEL_PROGRAMS } from './constants';
-import { SDK } from './sdk';
-import * as anchor from '@coral-xyz/anchor';
-import { gql } from 'graphql-request';
-import randombytes from 'randombytes';
+import { SEED_PREFIXES, WORDCEL_PROGRAMS } from './constants'
+import { SDK } from './sdk'
+import * as anchor from '@coral-xyz/anchor'
+import { gql } from 'graphql-request'
+import randombytes from 'randombytes'
 
-const { SystemProgram } = anchor.web3;
+const { SystemProgram } = anchor.web3
 export class Post {
-  readonly sdk: SDK;
+  readonly sdk: SDK
 
   constructor(sdk: SDK) {
-    this.sdk = sdk;
+    this.sdk = sdk
   }
 
   /**
@@ -26,11 +26,11 @@ export class Post {
       [SEED_PREFIXES['post'], randomHash],
       // @ts-ignore
       WORDCEL_PROGRAMS[this.sdk.cluster],
-    );
+    )
   }
 
   getPost(postAccount: anchor.web3.PublicKey) {
-    return this.sdk.program.account.post?.fetch(postAccount);
+    return this.sdk.program.account.post?.fetch(postAccount)
   }
 
   /**
@@ -59,8 +59,8 @@ export class Post {
             metadatauri
           }
         }
-      `;
-    return this.sdk.gqlClient.request(query);
+      `
+    return this.sdk.gqlClient.request(query)
   }
   /**
    * Data inside the Post PDA
@@ -84,8 +84,8 @@ export class Post {
    * @beta
    */
   async createPost(user: anchor.web3.PublicKey, profileAccount: anchor.web3.PublicKey, metadataUri: string) {
-    const randomHash = randombytes(32);
-    const [postAccount, _] = await this.postPDA(randomHash);
+    const randomHash = randombytes(32)
+    const [postAccount, _] = await this.postPDA(randomHash)
     return this.sdk.program.methods
       .createPost?.(metadataUri, randomHash)
       .accounts({
@@ -94,7 +94,7 @@ export class Post {
         authority: user,
         systemProgram: SystemProgram.programId,
       })
-      .instruction();
+      .instruction()
   }
   /**
    * Updates the on-chain post
@@ -119,6 +119,6 @@ export class Post {
         authority: user,
         systemProgram: SystemProgram.programId,
       })
-      .instruction();
+      .instruction()
   }
 }

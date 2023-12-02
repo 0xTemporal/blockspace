@@ -1,37 +1,37 @@
-'use client';
+'use client'
 
-import { $convertToMarkdownString, TRANSFORMERS } from '@lexical/markdown';
-import { Button } from '@nextui-org/react';
-import { EditorState } from 'lexical';
-import Link from 'next/link';
-import { useState } from 'react';
-import { LuPenSquare, LuPresentation } from 'react-icons/lu';
+import { $convertToMarkdownString, TRANSFORMERS } from '@lexical/markdown'
+import { Button } from '@nextui-org/react'
+import { EditorState } from 'lexical'
+import Link from 'next/link'
+import { useState } from 'react'
+import { LuPenSquare, LuPresentation } from 'react-icons/lu'
 
-import { Editor } from '@/src/components/editor';
-import { useEditorState } from '@/src/state';
+import { Editor } from '@/src/components/editor'
+import { useEditorState } from '@/src/state'
 
 export function Journal() {
-  const [submitting, setSubmitting] = useState(false);
+  const [submitting, setSubmitting] = useState(false)
 
-  const { update } = useEditorState();
+  const { update } = useEditorState()
 
   const onSubmit = () => {
-    setSubmitting(true);
+    setSubmitting(true)
 
     setTimeout(() => {
-      setSubmitting(false);
-    }, 3000);
-  };
+      setSubmitting(false)
+    }, 3000)
+  }
 
   const onEditorChange = (editorState: EditorState) => {
     editorState.read(() => {
-      const md = $convertToMarkdownString(TRANSFORMERS);
+      const md = $convertToMarkdownString(TRANSFORMERS)
       update({
         md,
         json: editorState.toJSON(),
-      });
-    });
-  };
+      })
+    })
+  }
 
   return (
     <div className="relative">
@@ -56,5 +56,5 @@ export function Journal() {
         </Button>
       </div>
     </div>
-  );
+  )
 }

@@ -1,8 +1,8 @@
-import { SEED_PREFIXES, WORDCEL_INVITE_PROGRAMS, WORDCEL_PROGRAMS } from './constants';
-import { SDK } from './sdk';
-import { web3 } from '@coral-xyz/anchor';
-import { gql } from 'graphql-request';
-import randombytes from 'randombytes';
+import { SEED_PREFIXES, WORDCEL_INVITE_PROGRAMS, WORDCEL_PROGRAMS } from './constants'
+import { SDK } from './sdk'
+import { web3 } from '@coral-xyz/anchor'
+import { gql } from 'graphql-request'
+import randombytes from 'randombytes'
 
 /**
  * This Class contains all the Function's that includes interaction with Profile Account on-chain
@@ -11,10 +11,10 @@ import randombytes from 'randombytes';
  * @beta
  */
 export class Profile {
-  readonly sdk: SDK;
+  readonly sdk: SDK
 
   constructor(sdk: SDK) {
-    this.sdk = sdk;
+    this.sdk = sdk
   }
   /**
    * Returns the Profile PDA
@@ -30,7 +30,7 @@ export class Profile {
       [SEED_PREFIXES['profile'], randomHash],
       // @ts-ignore
       WORDCEL_PROGRAMS[this.sdk.cluster],
-    );
+    )
   }
 
   /**
@@ -53,8 +53,8 @@ export class Profile {
             cl_pubkey
           }
         }
-      `;
-    return this.sdk.gqlClient.request(query);
+      `
+    return this.sdk.gqlClient.request(query)
   }
   /**
    * Returns the Profile Account for a Pubkey
@@ -73,7 +73,7 @@ export class Profile {
           bytes: account.toBase58(),
         },
       },
-    ]);
+    ])
   }
 
   /**
@@ -99,8 +99,8 @@ export class Profile {
             cl_pubkey
           }
         }
-      `;
-    return this.sdk.gqlClient.request(query);
+      `
+    return this.sdk.gqlClient.request(query)
   }
 
   /**
@@ -114,7 +114,7 @@ export class Profile {
    * @beta
    */
   getProfile(account: web3.PublicKey) {
-    return this.sdk.program.account.profile?.fetch(account);
+    return this.sdk.program.account.profile?.fetch(account)
   }
 
   /**
@@ -131,8 +131,8 @@ export class Profile {
    * @beta
    */
   async createProfile(user: web3.PublicKey, inviteAccount: web3.PublicKey) {
-    const randomHash = randombytes(32);
-    const [profileAccount, _] = await this.profilePDA(randomHash);
+    const randomHash = randombytes(32)
+    const [profileAccount, _] = await this.profilePDA(randomHash)
     return this.sdk.program.methods
       .initialize?.(randomHash)
       .accounts({
@@ -143,6 +143,6 @@ export class Profile {
         invitationProgram: WORDCEL_INVITE_PROGRAMS[this.sdk.cluster],
         systemProgram: web3.SystemProgram.programId,
       })
-      .instruction();
+      .instruction()
   }
 }

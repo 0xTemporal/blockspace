@@ -1,12 +1,12 @@
-import { SerializedEditorState, SerializedLexicalNode } from 'lexical';
-import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
+import { SerializedEditorState, SerializedLexicalNode } from 'lexical'
+import { create } from 'zustand'
+import { persist } from 'zustand/middleware'
 
 interface EditorState {
-  json: SerializedEditorState<SerializedLexicalNode>;
-  md: string;
-  state: string;
-  update: (editorState: Partial<Omit<EditorState, 'update'>>) => void;
+  json: SerializedEditorState<SerializedLexicalNode>
+  md: string
+  state: string
+  update: (editorState: Partial<Omit<EditorState, 'update'>>) => void
 }
 
 export const useEditorState = create<EditorState>()(
@@ -21,4 +21,4 @@ export const useEditorState = create<EditorState>()(
       name: 'editor-storage', // unique name
     },
   ),
-);
+)

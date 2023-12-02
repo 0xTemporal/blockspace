@@ -1,11 +1,12 @@
-import { createNextApiHandler } from '@trpc/server/adapters/next';
+import { createNextApiHandler } from '@trpc/server/adapters/next'
 
-import { AppRouter, appRouter, createContext } from '@/src/server/app';
+import { AppRouter, appRouter, createContext } from '@/src/server/app'
+
+export const runtime = 'edge'
 
 const nextApiHandler = createNextApiHandler<AppRouter>({
   router: appRouter,
   createContext,
-  batching: { enabled: true },
-});
+})
 
-export { nextApiHandler as GET, nextApiHandler as POST };
+export { nextApiHandler as GET, nextApiHandler as POST }

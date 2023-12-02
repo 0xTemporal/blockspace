@@ -1,13 +1,13 @@
-import { SEED_PREFIXES, WORDCEL_PROGRAMS } from './constants';
-import { SDK } from './sdk';
-import { web3 } from '@coral-xyz/anchor';
-import { gql } from 'graphql-request';
+import { SEED_PREFIXES, WORDCEL_PROGRAMS } from './constants'
+import { SDK } from './sdk'
+import { web3 } from '@coral-xyz/anchor'
+import { gql } from 'graphql-request'
 
 export class Connection {
-  readonly sdk: SDK;
+  readonly sdk: SDK
 
   constructor(sdk: SDK) {
-    this.sdk = sdk;
+    this.sdk = sdk
   }
   /**
    * Return's the PDA Derived from the provided Inputs
@@ -26,7 +26,7 @@ export class Connection {
       [SEED_PREFIXES['connection'], follower.toBuffer(), profileToFollow.toBuffer()],
       // @ts-ignore
       WORDCEL_PROGRAMS[this.sdk.cluster],
-    );
+    )
   }
 
   /**
@@ -59,8 +59,8 @@ export class Connection {
             }
           }
         }
-      `;
-    return this.sdk.gqlClient.request(query);
+      `
+    return this.sdk.gqlClient.request(query)
   }
 
   /**
@@ -87,8 +87,8 @@ export class Connection {
                   cl_pubkey
               }
         }
-      `;
-    return this.sdk.gqlClient.request(query);
+      `
+    return this.sdk.gqlClient.request(query)
   }
 
   /**
@@ -115,8 +115,8 @@ export class Connection {
                   profile
               }
         }
-      `;
-    return this.sdk.gqlClient.request(query);
+      `
+    return this.sdk.gqlClient.request(query)
   }
 
   /**
@@ -130,7 +130,7 @@ export class Connection {
    * @returns The data of the connection PDA Account
    */
   getConnectionPDAData(account: web3.PublicKey) {
-    return this.sdk.program.account.connection?.fetch(account);
+    return this.sdk.program.account.connection?.fetch(account)
   }
 
   /**
@@ -147,7 +147,7 @@ export class Connection {
    * @beta
    */
   async createConnection(follower: web3.PublicKey, profileToFollow: web3.PublicKey) {
-    const [connectionAccount, _] = await this.connectionPDA(follower, profileToFollow);
+    const [connectionAccount, _] = await this.connectionPDA(follower, profileToFollow)
     return this.sdk.program.methods
       .initializeConnection?.()
       .accounts({
@@ -156,7 +156,7 @@ export class Connection {
         authority: follower,
         systemProgram: web3.SystemProgram.programId,
       })
-      .instruction();
+      .instruction()
   }
 
   /**
@@ -172,7 +172,7 @@ export class Connection {
    * @beta
    */
   async closeConnection(follower: web3.PublicKey, profileToFollow: web3.PublicKey) {
-    const [connectionAccount, _] = await this.connectionPDA(follower, profileToFollow);
+    const [connectionAccount, _] = await this.connectionPDA(follower, profileToFollow)
     return this.sdk.program.methods
       .closeConnection?.()
       .accounts({
@@ -181,6 +181,6 @@ export class Connection {
         authority: follower,
         systemProgram: web3.SystemProgram.programId,
       })
-      .instruction();
+      .instruction()
   }
 }

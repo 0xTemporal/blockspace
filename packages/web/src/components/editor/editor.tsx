@@ -1,31 +1,31 @@
-'use client';
+'use client'
 
-import ToolbarPlugin from './editor-toolbar';
-import { ImageNode } from './nodes/image-node';
-import ImagesPlugin from './plugins/image';
-import { RestoreFromLocalStoragePlugin } from './plugins/local-storage';
-import { CodeHighlightNode, CodeNode } from '@lexical/code';
-import { AutoLinkNode, LinkNode } from '@lexical/link';
-import { ListItemNode, ListNode } from '@lexical/list';
-import { TRANSFORMERS } from '@lexical/markdown';
-import { AutoFocusPlugin } from '@lexical/react/LexicalAutoFocusPlugin';
-import { AutoLinkPlugin } from '@lexical/react/LexicalAutoLinkPlugin';
-import { InitialConfigType, LexicalComposer } from '@lexical/react/LexicalComposer';
-import { ContentEditable } from '@lexical/react/LexicalContentEditable';
-import LexicalErrorBoundary from '@lexical/react/LexicalErrorBoundary';
-import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin';
-import { HorizontalRuleNode } from '@lexical/react/LexicalHorizontalRuleNode';
-import { LinkPlugin } from '@lexical/react/LexicalLinkPlugin';
-import { ListPlugin } from '@lexical/react/LexicalListPlugin';
-import { MarkdownShortcutPlugin } from '@lexical/react/LexicalMarkdownShortcutPlugin';
-import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin';
-import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin';
-import { TabIndentationPlugin } from '@lexical/react/LexicalTabIndentationPlugin';
-import { HeadingNode, QuoteNode } from '@lexical/rich-text';
-import { TableCellNode, TableNode, TableRowNode } from '@lexical/table';
-import { EditorState, EditorThemeClasses, LexicalEditor } from 'lexical';
+import ToolbarPlugin from './editor-toolbar'
+import { ImageNode } from './nodes/image-node'
+import ImagesPlugin from './plugins/image'
+import { RestoreFromLocalStoragePlugin } from './plugins/local-storage'
+import { CodeHighlightNode, CodeNode } from '@lexical/code'
+import { AutoLinkNode, LinkNode } from '@lexical/link'
+import { ListItemNode, ListNode } from '@lexical/list'
+import { TRANSFORMERS } from '@lexical/markdown'
+import { AutoFocusPlugin } from '@lexical/react/LexicalAutoFocusPlugin'
+import { AutoLinkPlugin } from '@lexical/react/LexicalAutoLinkPlugin'
+import { InitialConfigType, LexicalComposer } from '@lexical/react/LexicalComposer'
+import { ContentEditable } from '@lexical/react/LexicalContentEditable'
+import LexicalErrorBoundary from '@lexical/react/LexicalErrorBoundary'
+import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin'
+import { HorizontalRuleNode } from '@lexical/react/LexicalHorizontalRuleNode'
+import { LinkPlugin } from '@lexical/react/LexicalLinkPlugin'
+import { ListPlugin } from '@lexical/react/LexicalListPlugin'
+import { MarkdownShortcutPlugin } from '@lexical/react/LexicalMarkdownShortcutPlugin'
+import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin'
+import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin'
+import { TabIndentationPlugin } from '@lexical/react/LexicalTabIndentationPlugin'
+import { HeadingNode, QuoteNode } from '@lexical/rich-text'
+import { TableCellNode, TableNode, TableRowNode } from '@lexical/table'
+import { EditorState, EditorThemeClasses, LexicalEditor } from 'lexical'
 
-import { useSharedHistoryContext } from './context/shared-history';
+import { useSharedHistoryContext } from './context/shared-history'
 
 const theme = {
   root: 'h-auto min-h-[67vh] outline-none prose [&_*]:text-foreground',
@@ -51,35 +51,35 @@ const theme = {
       listitem: 'list-none',
     },
   },
-} satisfies EditorThemeClasses;
+} satisfies EditorThemeClasses
 
 const URL_MATCHER =
-  /((https?:\/\/(www\.)?)|(www\.))[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/;
+  /((https?:\/\/(www\.)?)|(www\.))[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/
 
 const MATCHERS = [
   (text: string) => {
-    const match = URL_MATCHER.exec(text);
+    const match = URL_MATCHER.exec(text)
     if (match === null) {
-      return null;
+      return null
     }
-    const fullMatch = match[0];
+    const fullMatch = match[0]
     return {
       index: match.index,
       length: fullMatch.length,
       text: fullMatch,
       url: fullMatch.startsWith('http') ? fullMatch : `https://${fullMatch}`,
       attributes: { rel: 'noreferrer', target: '_blank' }, // Optional link attributes
-    };
+    }
   },
-];
+]
 
 export function Editor({
   onChange,
 }: {
-  onChange: (editorState: EditorState, editor: LexicalEditor, tags: Set<string>) => void;
+  onChange: (editorState: EditorState, editor: LexicalEditor, tags: Set<string>) => void
 }) {
   function onError(error: Error) {
-    console.error(error);
+    console.error(error)
   }
 
   const initialConfig = {
@@ -101,9 +101,9 @@ export function Editor({
       ImageNode,
     ],
     onError,
-  } satisfies InitialConfigType;
+  } satisfies InitialConfigType
 
-  const { historyState } = useSharedHistoryContext();
+  const { historyState } = useSharedHistoryContext()
 
   return (
     <div className="relative mx-6 -mt-12 w-full space-y-4">
@@ -131,5 +131,5 @@ export function Editor({
         <MarkdownShortcutPlugin transformers={TRANSFORMERS} />
       </LexicalComposer>
     </div>
-  );
+  )
 }

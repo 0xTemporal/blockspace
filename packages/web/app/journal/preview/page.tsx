@@ -1,22 +1,22 @@
-'use client';
+'use client'
 
-import { Button, Image, Link } from '@nextui-org/react';
-import { LuArrowLeft } from 'react-icons/lu';
-import Markdown from 'react-markdown';
+import { Button, Image, Link } from '@nextui-org/react'
+import { LuArrowLeft } from 'react-icons/lu'
+import Markdown from 'react-markdown'
 
-import { Author } from '@/src/components/author';
-import { useEditorState } from '@/src/state';
-import { useUserStore } from '@/src/state';
+import { Author } from '@/src/components/author'
+import { useEditorState } from '@/src/state'
+import { useUserStore } from '@/src/state'
 
 const truncateAddress = (address: string, charCount: number = 6) =>
-  `${address.slice(0, charCount)}...${address.slice(-charCount)}`;
+  `${address.slice(0, charCount)}...${address.slice(-charCount)}`
 
 export default function PostPage() {
-  const author = 'toly';
+  const author = 'toly'
 
-  const { user } = useUserStore();
+  const { user } = useUserStore()
 
-  const { md, state } = useEditorState();
+  const { md, state } = useEditorState()
 
   return (
     <div className="container flex max-w-[65ch] flex-col gap-y-2 px-2 text-foreground sm:px-0">
@@ -45,5 +45,5 @@ export default function PostPage() {
         </Button>
       </div>
     </div>
-  );
+  )
 }

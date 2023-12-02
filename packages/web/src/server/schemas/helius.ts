@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { z } from 'zod'
 
 export const mintApiRequestSchema = z.object({
   name: z.string(),
@@ -29,4 +29,4 @@ export const mintApiRequestSchema = z.object({
     .optional(),
   imagePath: z.string().optional(),
   walletPrivateKey: z.string().optional(),
-});
+})

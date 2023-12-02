@@ -1,15 +1,17 @@
-import { getServerSession } from 'next-auth';
-import { redirect } from 'next/navigation';
+import { redirect } from 'next/navigation'
 
-import { Journal } from '@/src/components/journal';
+import { Journal } from '@/src/components/journal'
+import { auth } from '@/src/lib/auth'
+
+export const runtime = 'edge'
 
 export default async function JournalPage() {
-  const session = await getServerSession();
+  const session = await auth()
 
   if (!session) {
     // TODO add toast
-    return redirect('/');
+    return redirect('/')
   }
 
-  return <Journal />;
+  return <Journal />
 }

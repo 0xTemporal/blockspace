@@ -1,4 +1,4 @@
-import { Avatar, Card, Skeleton } from '@nextui-org/react';
+import { Avatar, Card, Skeleton } from '@nextui-org/react'
 
 export default function JournalSkeleton() {
   return (
@@ -6,5 +6,5 @@ export default function JournalSkeleton() {
       <Skeleton className="mt-4 flex h-10 w-full rounded-full" />
       <Skeleton className="h-96 w-full rounded-lg" />
     </div>
-  );
+  )
 }

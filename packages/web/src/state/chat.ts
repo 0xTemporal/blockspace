@@ -1,9 +1,9 @@
-'use client';
+'use client'
 
-import { useDialectSdk } from '@dialectlabs/react-sdk';
+import { useDialectSdk } from '@dialectlabs/react-sdk'
 
 export const useChat = () => {
-  const sdk = useDialectSdk();
+  const sdk = useDialectSdk()
 
-  return { sdk };
-};
+  return { sdk }
+}

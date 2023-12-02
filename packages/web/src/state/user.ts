@@ -1,18 +1,18 @@
-import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
+import { create } from 'zustand'
+import { persist } from 'zustand/middleware'
 
 interface User {
-  name: string;
-  avatar: string;
-  bio: string;
-  joinedDate: string;
-  publicKey: string;
-  twitterHandle: string;
+  name: string
+  avatar: string
+  bio: string
+  joinedDate: string
+  publicKey: string
+  twitterHandle: string
 }
 
 interface UserState {
-  user?: User;
-  setUser: (user: User) => void;
+  user?: User
+  setUser: (user: User) => void
 }
 
 export const useUserStore = create<UserState>()(
@@ -31,4 +31,4 @@ export const useUserStore = create<UserState>()(
       name: 'blockspace-user', // unique name
     },
   ),
-);
+)

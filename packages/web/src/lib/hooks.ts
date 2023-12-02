@@ -1,11 +1,11 @@
-import { useTheme } from 'next-themes';
+import { useTheme } from 'next-themes'
 
 export const useDarkMode = () => {
-  const { setTheme, theme } = useTheme();
+  const { setTheme, theme } = useTheme()
 
-  const isDarkMode = theme === 'dark';
+  const isDarkMode = theme === 'dark'
 
-  const toggleDarkMode = () => setTheme(isDarkMode ? 'light' : 'dark');
+  const toggleDarkMode = () => setTheme(isDarkMode ? 'light' : 'dark')
 
-  return { isDarkMode, toggleDarkMode };
-};
+  return { isDarkMode, toggleDarkMode }
+}

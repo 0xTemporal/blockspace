@@ -1,32 +1,32 @@
-import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
-import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin';
-import { EditorState } from 'lexical';
-import React from 'react';
+import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext'
+import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin'
+import { EditorState } from 'lexical'
+import React from 'react'
 
-import { useEditorState } from '@/src/state';
+import { useEditorState } from '@/src/state'
 
 export function RestoreFromLocalStoragePlugin() {
-  const [editor] = useLexicalComposerContext();
-  const { update, state } = useEditorState();
-  const [isFirstRender, setIsFirstRender] = React.useState(true);
+  const [editor] = useLexicalComposerContext()
+  const { update, state } = useEditorState()
+  const [isFirstRender, setIsFirstRender] = React.useState(true)
 
   React.useEffect(() => {
     if (isFirstRender) {
-      setIsFirstRender(false);
+      setIsFirstRender(false)
 
       if (state) {
-        const initialEditorState = editor.parseEditorState(state);
-        editor.setEditorState(initialEditorState);
+        const initialEditorState = editor.parseEditorState(state)
+        editor.setEditorState(initialEditorState)
       }
     }
-  }, [isFirstRender, state, editor]);
+  }, [isFirstRender, state, editor])
 
   const onChange = React.useCallback(
     (editorState: EditorState) => {
-      update({ state: JSON.stringify(editorState.toJSON()) });
+      update({ state: JSON.stringify(editorState.toJSON()) })
     },
     [update],
-  );
+  )
 
-  return <OnChangePlugin onChange={onChange} />;
+  return <OnChangePlugin onChange={onChange} />
 }

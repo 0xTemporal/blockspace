@@ -32,6 +32,8 @@ sw.js
 swe-*.js
 workbox-*.js
 
+# Wrangler
+.wrangler
 
 # Debug
 npm-debug.log*

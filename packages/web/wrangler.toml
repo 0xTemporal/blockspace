@@ -1,6 +1,6 @@
 # Top-level configuration
 name = "blockspace-web"
-main = "./src/index.ts"
+main = ".vercel/output/static"
 compatibility_date = "2023-12-01"
 
 workers_dev = false
@@ -15,3 +15,7 @@ route = { pattern = "staging.blockspace.so/*", zone_name = "blockspace.so" }
 binding = "DB" # i.e. available in your Worker on env.DB
 database_name = "blockspace"
 database_id = "cf1e29f8-9d84-4e6d-8114-ddd25f8489a4"
+
+r2_buckets  = [
+  { binding = "", bucket_name = "blockspace"}
+]

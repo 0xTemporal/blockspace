@@ -1,13 +1,13 @@
-import { Author } from './author';
-import { ColorBar } from './color-bar';
-import { Avatar, Link, Tooltip } from '@nextui-org/react';
-import { BsTwitterX } from 'react-icons/bs';
-import { LuCake, LuKeyRound } from 'react-icons/lu';
+import { Author } from './author'
+import { ColorBar } from './color-bar'
+import { Avatar, Link, Tooltip } from '@nextui-org/react'
+import { BsTwitterX } from 'react-icons/bs'
+import { LuCake, LuKeyRound } from 'react-icons/lu'
 
 export type PostPreviewProps = {
-  author: string;
-  avatar: string;
-};
+  author: string
+  avatar: string
+}
 
 export const PostPreview = ({ avatar, author }: PostPreviewProps) => {
   return (
@@ -22,5 +22,5 @@ export const PostPreview = ({ avatar, author }: PostPreviewProps) => {
       </p>
       <p className="text-xs text-foreground/60">4 minute read</p>
     </div>
-  );
-};
+  )
+}

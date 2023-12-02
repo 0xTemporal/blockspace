@@ -1,12 +1,12 @@
-'use client';
+'use client'
 
-import { SignedIn } from './signed-in';
-import { useWallet } from '@solana/wallet-adapter-react';
+import { SignedIn } from './signed-in'
+import { useWallet } from '@solana/wallet-adapter-react'
 
-import { useChat } from '@/src/state/chat';
+import { useChat } from '@/src/state/chat'
 
 export function MessagesView() {
-  const { publicKey } = useWallet();
+  const { publicKey } = useWallet()
 
-  return publicKey ? <SignedIn /> : <div>Please connect</div>;
+  return publicKey ? <SignedIn /> : <div>Please connect</div>
 }

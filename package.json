@@ -9,6 +9,8 @@
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20231121.0",
+    "@types/better-sqlite3": "^7.6.8",
+    "bun-types": "^1.0.14",
     "prettier": "^3.1.0",
     "turbo": "latest"
   },
@@ -20,6 +22,7 @@
     "packages/*"
   ],
   "dependencies": {
+    "better-sqlite3": "^9.2.0",
     "wrangler": "latest"
   }
 }

@@ -1,9 +1,13 @@
 /** @type {import("eslint").Linter.Config} */
 module.exports = {
   root: true,
-  extends: ['@blockspace/eslint-config/next.js'],
+  extends: ['@blockspace/eslint-config/next.js', 'plugin:next-on-pages/recommended'],
   parser: '@typescript-eslint/parser',
   parserOptions: {
     project: true,
   },
-};
+  plugins: ['next-on-pages'],
+  rules: {
+    'next-on-pages/no-unsupported-configs': 'warn',
+  },
+}

@@ -1,27 +1,27 @@
-'use client';
+'use client'
 
-import { FastAverageColor } from 'fast-average-color';
-import { useEffect, useState } from 'react';
-import toast from 'react-hot-toast';
-import { twJoin } from 'tailwind-merge';
+import { FastAverageColor } from 'fast-average-color'
+import { useEffect, useState } from 'react'
+import toast from 'react-hot-toast'
+import { twJoin } from 'tailwind-merge'
 
-const fac = new FastAverageColor();
+const fac = new FastAverageColor()
 
 type ColorBarProps = {
-  avatar: string;
-  size?: 'sm' | 'lg';
-  className?: string;
-};
+  avatar: string
+  size?: 'sm' | 'lg'
+  className?: string
+}
 
 export const ColorBar = ({ avatar, size = 'lg', className }: ColorBarProps) => {
-  const [color, setColor] = useState<string>();
+  const [color, setColor] = useState<string>()
 
   useEffect(() => {
-    (async () => {
-      const { hex } = await fac.getColorAsync(avatar);
-      setColor(hex);
-    })();
-  }, [avatar]);
+    ;(async () => {
+      const { hex } = await fac.getColorAsync(avatar)
+      setColor(hex)
+    })()
+  }, [avatar])
 
   return (
     <div
@@ -33,5 +33,5 @@ export const ColorBar = ({ avatar, size = 'lg', className }: ColorBarProps) => {
       )}
       style={{ background: color }}
     />
-  );
-};
+  )
+}

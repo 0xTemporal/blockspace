@@ -1,73 +1,49 @@
-import * as anchor from '@coral-xyz/anchor';
-import { z } from 'zod';
+import { TRPCError } from '@trpc/server'
+import { createInsertSchema, createSelectSchema } from 'drizzle-zod'
 
-import { publicProcedure, router } from '../trpc';
+import { db } from '@/src/db'
+import { profiles, users } from '@/src/db/schema/user'
 
-export interface User {
-  id: number;
-  name: string;
-  username: string;
-  public_key: string;
-  blog_name: string;
-  tip_enabled: boolean;
-  connection_count?: number;
-  profile_hash?: string;
-  bio?: string;
-  twitter?: string;
-  discord?: string;
-  image_url?: string;
-  banner_url?: string;
-  invited_by: { name: string; username: string } | null;
-}
+import { isAuthed } from '../middleware'
+import { publicProcedure, router } from '../trpc'
 
-export const userSchema = z.object({
-  id: z.number(),
-  name: z.string(),
-  username: z.string(),
-  public_key: z.string(),
-  blog_name: z.string(),
-  tip_enabled: z.boolean(),
-  connection_count: z.number().optional(),
-  profile_hash: z.string().optional(),
-  bio: z.string().optional(),
-  twitter: z.string().optional(),
-  discord: z.string().optional(),
-  image_url: z.string().optional(),
-  banner_url: z.string().optional(),
-  invited_by: z
-    .object({
-      name: z.string(),
-      username: z.string(),
-    })
-    .nullable(),
-});
+// users
+
+export const insertUserSchema = createInsertSchema(users)
+
+export const createUserSchema = insertUserSchema.omit({ id: true, joinTimestamp: true })
+
+export const selectUserSchema = createSelectSchema(users)
+
+// profiles
+
+export const insertProfileSchema = createInsertSchema(profiles)
+
+export const createProfileSchema = insertProfileSchema.omit({ id: true })
+
+export const selectProfleSchema = createSelectSchema(profiles)
+
+// trpc router
 
 export const userRouter = router({
-  create: publicProcedure.input(userSchema).mutation((opts) => {
-    const { input } = opts;
+  createUser: publicProcedure.input(createUserSchema).mutation(async (opts) => {
+    const { input } = opts
 
-    //   const program = new anchor.Program(idl as anchor.Idl, programID, provider(wallet));
-    // const profileHash = randombytes(32);
-    // const profileSeeds = [Buffer.from("profile"), profileHash];
-    // const [profileKey] = await anchor.web3.PublicKey.findProgramAddress(
-    //   profileSeeds,
-    //   program.programId
-    // );
-    // const transaction = await program.methods.initialize(profileHash).accounts({
-    //   profile: profileKey,
-    //   user: wallet.publicKey,
-    //   systemProgram: SystemProgram.programId
-    // }).transaction();
-    // const confirmed = await sendAndConfirmTransaction(
-    //   connection,
-    //   transaction,
-    //   wallet
-    // );
-    // if (!confirmed) return;
-    // return profileHash.toString('base64');
+    return await db.insert(users).values(input).returning()
   }),
-  list: publicProcedure.query(() => {
-    // [..]
-    return [] as number[];
+  createProfile: publicProcedure
+    .use(isAuthed)
+    .input(createProfileSchema)
+    .mutation(async (opts) => {
+      const { input, ctx } = opts
+
+      if (!ctx.session) {
+        throw new TRPCError({ code: 'UNAUTHORIZED' })
+      }
+
+      return await db.insert(profiles).values(input).returning()
+    }),
+  getUsers: publicProcedure.query(async () => {
+    return await db.query.users.findMany()
   }),
-});
+})

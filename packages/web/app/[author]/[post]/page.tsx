@@ -1,12 +1,12 @@
-import { Metadata } from 'next';
+import { Metadata } from 'next'
 
-import { PostView } from '@/src/views/post';
+import { PostView } from '@/src/views/post'
 
 const truncateAddress = (address: string, charCount: number = 6) =>
-  `${address.slice(0, charCount)}...${address.slice(-charCount)}`;
+  `${address.slice(0, charCount)}...${address.slice(-charCount)}`
 
 export async function generateMetadata({ params }): Promise<Metadata> {
-  const author = params.author;
+  const author = params.author
 
   return {
     title: 'Hello world?????',
@@ -18,9 +18,9 @@ export async function generateMetadata({ params }): Promise<Metadata> {
       username: 'toly',
       images: 'https://pbs.twimg.com/profile_images/1725588229808889859/L6bOXam6_400x400.jpg',
     },
-  };
+  }
 }
 
 export default function PostPage({ params }: any) {
-  return <PostView />;
+  return <PostView />
 }

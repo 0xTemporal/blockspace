@@ -1,304 +1,304 @@
 export type Wordcel = {
-  version: '0.1.1';
-  name: 'wordcel';
+  version: '0.1.1'
+  name: 'wordcel'
   instructions: [
     {
-      name: 'initialize';
+      name: 'initialize'
       accounts: [
         {
-          name: 'profile';
-          isMut: true;
-          isSigner: false;
+          name: 'profile'
+          isMut: true
+          isSigner: false
         },
         {
-          name: 'invitation';
-          isMut: false;
-          isSigner: false;
+          name: 'invitation'
+          isMut: false
+          isSigner: false
         },
         {
-          name: 'user';
-          isMut: true;
-          isSigner: true;
+          name: 'user'
+          isMut: true
+          isSigner: true
         },
         {
-          name: 'systemProgram';
-          isMut: false;
-          isSigner: false;
+          name: 'systemProgram'
+          isMut: false
+          isSigner: false
         },
         {
-          name: 'invitationProgram';
-          isMut: false;
-          isSigner: false;
+          name: 'invitationProgram'
+          isMut: false
+          isSigner: false
         },
-      ];
+      ]
       args: [
         {
-          name: 'randomHash';
+          name: 'randomHash'
           type: {
-            array: ['u8', 32];
-          };
+            array: ['u8', 32]
+          }
         },
-      ];
+      ]
     },
     {
-      name: 'createPost';
+      name: 'createPost'
       accounts: [
         {
-          name: 'profile';
-          isMut: false;
-          isSigner: false;
+          name: 'profile'
+          isMut: false
+          isSigner: false
         },
         {
-          name: 'post';
-          isMut: true;
-          isSigner: false;
+          name: 'post'
+          isMut: true
+          isSigner: false
         },
         {
-          name: 'authority';
-          isMut: true;
-          isSigner: true;
+          name: 'authority'
+          isMut: true
+          isSigner: true
         },
         {
-          name: 'systemProgram';
-          isMut: false;
-          isSigner: false;
+          name: 'systemProgram'
+          isMut: false
+          isSigner: false
         },
-      ];
+      ]
       args: [
         {
-          name: 'metadataUri';
-          type: 'string';
+          name: 'metadataUri'
+          type: 'string'
         },
         {
-          name: 'randomHash';
+          name: 'randomHash'
           type: {
-            array: ['u8', 32];
-          };
+            array: ['u8', 32]
+          }
         },
-      ];
+      ]
     },
     {
-      name: 'updatePost';
+      name: 'updatePost'
       accounts: [
         {
-          name: 'profile';
-          isMut: false;
-          isSigner: false;
+          name: 'profile'
+          isMut: false
+          isSigner: false
         },
         {
-          name: 'post';
-          isMut: true;
-          isSigner: false;
+          name: 'post'
+          isMut: true
+          isSigner: false
         },
         {
-          name: 'authority';
-          isMut: true;
-          isSigner: true;
+          name: 'authority'
+          isMut: true
+          isSigner: true
         },
         {
-          name: 'systemProgram';
-          isMut: false;
-          isSigner: false;
+          name: 'systemProgram'
+          isMut: false
+          isSigner: false
         },
-      ];
+      ]
       args: [
         {
-          name: 'metadataUri';
-          type: 'string';
+          name: 'metadataUri'
+          type: 'string'
         },
-      ];
+      ]
     },
     {
-      name: 'comment';
+      name: 'comment'
       accounts: [
         {
-          name: 'profile';
-          isMut: false;
-          isSigner: false;
+          name: 'profile'
+          isMut: false
+          isSigner: false
         },
         {
-          name: 'post';
-          isMut: true;
-          isSigner: false;
+          name: 'post'
+          isMut: true
+          isSigner: false
         },
         {
-          name: 'replyTo';
-          isMut: false;
-          isSigner: false;
+          name: 'replyTo'
+          isMut: false
+          isSigner: false
         },
         {
-          name: 'authority';
-          isMut: true;
-          isSigner: true;
+          name: 'authority'
+          isMut: true
+          isSigner: true
         },
         {
-          name: 'systemProgram';
-          isMut: false;
-          isSigner: false;
+          name: 'systemProgram'
+          isMut: false
+          isSigner: false
         },
-      ];
+      ]
       args: [
         {
-          name: 'metadataUri';
-          type: 'string';
+          name: 'metadataUri'
+          type: 'string'
         },
         {
-          name: 'randomHash';
+          name: 'randomHash'
           type: {
-            array: ['u8', 32];
-          };
+            array: ['u8', 32]
+          }
         },
-      ];
+      ]
     },
     {
-      name: 'initializeConnection';
+      name: 'initializeConnection'
       accounts: [
         {
-          name: 'connection';
-          isMut: true;
-          isSigner: false;
+          name: 'connection'
+          isMut: true
+          isSigner: false
         },
         {
-          name: 'profile';
-          isMut: false;
-          isSigner: false;
+          name: 'profile'
+          isMut: false
+          isSigner: false
         },
         {
-          name: 'authority';
-          isMut: true;
-          isSigner: true;
+          name: 'authority'
+          isMut: true
+          isSigner: true
         },
         {
-          name: 'systemProgram';
-          isMut: false;
-          isSigner: false;
+          name: 'systemProgram'
+          isMut: false
+          isSigner: false
         },
-      ];
-      args: [];
+      ]
+      args: []
     },
     {
-      name: 'closeConnection';
+      name: 'closeConnection'
       accounts: [
         {
-          name: 'connection';
-          isMut: true;
-          isSigner: false;
+          name: 'connection'
+          isMut: true
+          isSigner: false
         },
         {
-          name: 'profile';
-          isMut: false;
-          isSigner: false;
+          name: 'profile'
+          isMut: false
+          isSigner: false
         },
         {
-          name: 'authority';
-          isMut: true;
-          isSigner: true;
+          name: 'authority'
+          isMut: true
+          isSigner: true
         },
         {
-          name: 'systemProgram';
-          isMut: false;
-          isSigner: false;
+          name: 'systemProgram'
+          isMut: false
+          isSigner: false
         },
-      ];
-      args: [];
+      ]
+      args: []
     },
-  ];
+  ]
   accounts: [
     {
-      name: 'profile';
+      name: 'profile'
       type: {
-        kind: 'struct';
+        kind: 'struct'
         fields: [
           {
-            name: 'authority';
-            type: 'publicKey';
+            name: 'authority'
+            type: 'publicKey'
           },
           {
-            name: 'bump';
-            type: 'u8';
+            name: 'bump'
+            type: 'u8'
           },
           {
-            name: 'randomHash';
+            name: 'randomHash'
             type: {
-              array: ['u8', 32];
-            };
+              array: ['u8', 32]
+            }
           },
-        ];
-      };
+        ]
+      }
     },
     {
-      name: 'post';
+      name: 'post'
       type: {
-        kind: 'struct';
+        kind: 'struct'
         fields: [
           {
-            name: 'profile';
-            type: 'publicKey';
+            name: 'profile'
+            type: 'publicKey'
           },
           {
-            name: 'metadataUri';
-            type: 'string';
+            name: 'metadataUri'
+            type: 'string'
           },
           {
-            name: 'bump';
-            type: 'u8';
+            name: 'bump'
+            type: 'u8'
           },
           {
-            name: 'randomHash';
+            name: 'randomHash'
             type: {
-              array: ['u8', 32];
-            };
+              array: ['u8', 32]
+            }
           },
           {
-            name: 'replyTo';
+            name: 'replyTo'
             type: {
-              option: 'publicKey';
-            };
+              option: 'publicKey'
+            }
           },
-        ];
-      };
+        ]
+      }
     },
     {
-      name: 'connection';
+      name: 'connection'
       type: {
-        kind: 'struct';
+        kind: 'struct'
         fields: [
           {
-            name: 'profile';
-            type: 'publicKey';
+            name: 'profile'
+            type: 'publicKey'
           },
           {
-            name: 'authority';
-            type: 'publicKey';
+            name: 'authority'
+            type: 'publicKey'
           },
           {
-            name: 'bump';
-            type: 'u8';
+            name: 'bump'
+            type: 'u8'
           },
-        ];
-      };
+        ]
+      }
     },
-  ];
+  ]
   types: [
     {
-      name: 'ConnectionError';
+      name: 'ConnectionError'
       type: {
-        kind: 'enum';
+        kind: 'enum'
         variants: [
           {
-            name: 'SelfFollow';
+            name: 'SelfFollow'
           },
-        ];
-      };
+        ]
+      }
     },
-  ];
+  ]
   errors: [
     {
-      code: 6000;
-      name: 'URITooLarge';
+      code: 6000
+      name: 'URITooLarge'
     },
-  ];
-};
+  ]
+}
 
 export const IDL: Wordcel = {
   version: '0.1.1',
@@ -600,4 +600,4 @@ export const IDL: Wordcel = {
       name: 'URITooLarge',
     },
   ],
-};
+}

@@ -1,10 +1,3 @@
-import { NextApiRequest, NextApiResponse } from 'next';
-import NextAuth from 'next-auth';
+export const runtime = 'edge'
 
-import { getNextAuthOptions } from '@/src/lib/auth';
-
-async function auth(req: NextApiRequest, res: NextApiResponse) {
-  return await NextAuth(req as any, res as any, getNextAuthOptions(req));
-}
-
-export { auth as POST, auth as GET };
+export { POST, GET } from '@/src/lib/auth'

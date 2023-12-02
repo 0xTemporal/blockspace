@@ -1,20 +1,21 @@
-'use client';
+'use client'
 
-import { Image, Link } from '@nextui-org/react';
-import Markdown from 'react-markdown';
+import { trpc } from '@/app/_trpc/client'
+import { Image, Link } from '@nextui-org/react'
+import Markdown from 'react-markdown'
 
-import { Author } from '@/src/components/author';
-import { MintableBlock } from '@/src/components/mintable-block';
-import { PostDropdown } from '@/src/components/post-dropdown';
-import { useEditorState, useUserStore } from '@/src/state';
+import { Author } from '@/src/components/author'
+import { MintableBlock } from '@/src/components/mintable-block'
+import { PostDropdown } from '@/src/components/post-dropdown'
+import { useEditorState, useUserStore } from '@/src/state'
 
 export function PostView() {
-  const avatar = 'https://pbs.twimg.com/profile_images/1725588229808889859/L6bOXam6_400x400.jpg';
-  const author = 'toly';
+  const author = 'toly'
 
-  const { user } = useUserStore();
+  const { data } = trpc.user.getUsers.useQuery()
+  const { user } = useUserStore()
 
-  const { md } = useEditorState();
+  const { md } = useEditorState()
 
   return (
     <div className="container flex max-w-[65ch] flex-col gap-y-2 px-2 text-foreground sm:px-0">
@@ -39,5 +40,5 @@ export function PostView() {
         </Markdown>
       </div>
     </div>
-  );
+  )
 }

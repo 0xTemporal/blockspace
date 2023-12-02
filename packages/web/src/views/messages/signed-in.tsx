@@ -1,8 +1,8 @@
-import { useChat } from '@/src/state/chat';
+import { useChat } from '@/src/state/chat'
 
 export const SignedIn = () => {
-  const { sdk } = useChat();
+  const { sdk } = useChat()
 
-  console.log(sdk);
-  return <div>Signed in</div>;
-};
+  console.log(sdk)
+  return <div>Signed in</div>
+}
