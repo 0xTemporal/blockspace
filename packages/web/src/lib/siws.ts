@@ -39,5 +39,4 @@ export const signInWithSolana = async (
     console.log(error)
     throw error
   }
-  return false
 }

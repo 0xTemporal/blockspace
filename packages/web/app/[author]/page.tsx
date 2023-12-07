@@ -1,5 +1,5 @@
-import { Avatar, Card, Divider, Link } from '@nextui-org/react'
-import { Metadata, ResolvingMetadata } from 'next'
+import { Avatar, Card, Divider } from '@nextui-org/react'
+import { Metadata } from 'next'
 import { BsTwitterX } from 'react-icons/bs'
 import { LuCake, LuKeyRound } from 'react-icons/lu'
 

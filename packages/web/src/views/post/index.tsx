@@ -1,6 +1,5 @@
 'use client'
 
-import { trpc } from '@/app/_trpc/client'
 import { Image, Link } from '@nextui-org/react'
 import Markdown from 'react-markdown'
 
@@ -12,7 +11,6 @@ import { useEditorState, useUserStore } from '@/src/state'
 export function PostView() {
   const author = 'toly'
 
-  const { data } = trpc.user.getUsers.useQuery()
   const { user } = useUserStore()
 
   const { md } = useEditorState()

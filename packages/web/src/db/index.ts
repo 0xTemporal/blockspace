@@ -1,11 +1,13 @@
 import * as schema from './schema'
-import { Database } from 'bun:sqlite'
-import { drizzle } from 'drizzle-orm/bun-sqlite'
+import { drizzle } from 'drizzle-orm/d1'
 
-// better-sqlite3
-// import Database from 'better-sqlite3';
-// import { drizzle } from 'drizzle-orm/better-sqlite3';
+export const db = drizzle(process.env.DB!, { schema })
+// bun
 
-const sqlite = new Database('sqlite.db')
+// // better-sqlite3
+// import Database from 'better-sqlite3'
+// import { drizzle } from 'drizzle-orm/better-sqlite3'
 
-export const db = drizzle(sqlite, { schema })
+// const sqlite = new Database('sqlite.db')
+
+// export const db = drizzle(sqlite, { schema })

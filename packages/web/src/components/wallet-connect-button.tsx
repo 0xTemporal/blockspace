@@ -1,18 +1,20 @@
 'use client'
 
-import { Button, ButtonProps, CircularProgress } from '@nextui-org/react'
+import { Button, ButtonProps } from '@nextui-org/react'
 import { useWalletConnectButton } from '@solana/wallet-adapter-base-ui'
 import { useWallet } from '@solana/wallet-adapter-react'
 import { WalletIcon, useWalletModal } from '@solana/wallet-adapter-react-ui'
+import { SolanaSignInOutput } from '@solana/wallet-standard-features'
 import { useCallback, useEffect, useState } from 'react'
-import toast from 'react-hot-toast/headless'
 
-import { signInWithSolana } from '../lib/siws'
+import { client } from '../api'
 
-export const WalletConnectButton = ({ children, disabled, ...props }: ButtonProps) => {
+// import { signInWithSolana } from '../lib/siws'
+
+export const WalletConnectButton = (props: ButtonProps) => {
   const { setVisible } = useWalletModal()
   const { walletIcon, walletName } = useWalletConnectButton()
-  const { publicKey, signMessage, connect } = useWallet()
+  const { publicKey, signMessage, connect, signIn } = useWallet()
   const [connecting, setConnecting] = useState(false)
 
   useEffect(() => {
@@ -21,10 +23,36 @@ export const WalletConnectButton = ({ children, disabled, ...props }: ButtonProp
     }
   }, [connect, walletName])
 
-  const signIn = useCallback(async () => {
+  const handleSignIn = useCallback(async () => {
     setConnecting(true)
-    signInWithSolana(publicKey!, signMessage!)
-    setConnecting(false)
+    try {
+      const input = await client.auth.getSignInData.query()
+
+      const output = await signIn?.(input)
+
+      const serialized: SolanaSignInOutput = {
+        account: {
+          address: output?.account.address!,
+          publicKey: output?.account.publicKey!,
+          chains: output?.account.chains!,
+          features: output?.account.features!,
+        },
+        signature: output?.signature!,
+        signedMessage: output?.signedMessage!,
+        signatureType: output?.signatureType,
+      }
+
+      const payload = JSON.stringify({ input, output: serialized })
+
+      const response = await client.auth.verifySignIn.mutate({ payload })
+
+      console.log(response)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      setConnecting(false)
+    }
+    // signInWithSolana(publicKey!, signMessage!)
   }, [publicKey, signMessage])
 
   return walletName === undefined ? (
@@ -38,7 +66,7 @@ export const WalletConnectButton = ({ children, disabled, ...props }: ButtonProp
       Select Wallet
     </Button>
   ) : (
-    <Button {...props} onClick={signIn} color="primary" isLoading={connecting}>
+    <Button {...props} onClick={handleSignIn} color="primary" isLoading={connecting}>
       {walletIcon && walletName && !connecting ? (
         <span className="h-6 w-6">
           <WalletIcon wallet={{ adapter: { icon: walletIcon, name: walletName } }} />

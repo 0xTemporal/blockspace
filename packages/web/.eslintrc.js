@@ -6,7 +6,7 @@ module.exports = {
   parserOptions: {
     project: true,
   },
-  plugins: ['next-on-pages'],
+  plugins: ['next-on-pages', 'drizzle'],
   rules: {
     'next-on-pages/no-unsupported-configs': 'warn',
   },

@@ -22,7 +22,10 @@
     "packages/*"
   ],
   "dependencies": {
+    "@tailwindcss/container-queries": "^0.1.1",
+    "api": "^6.1.1",
     "better-sqlite3": "^9.2.0",
-    "wrangler": "latest"
+    "helius-sdk": "^1.2.1",
+    "wrangler": "^3.18.0"
   }
 }

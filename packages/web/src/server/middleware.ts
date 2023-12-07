@@ -1,12 +1,12 @@
 import { middleware } from './trpc'
 import { TRPCError } from '@trpc/server'
 
-export const isAuthed = middleware(({ ctx, next }) => {
-  const { session } = ctx
-  if (!session) {
+export const isAuthorized = middleware(async (opts) => {
+  const { ctx } = opts
+
+  if (!ctx.session.isLoggedIn) {
     throw new TRPCError({ code: 'UNAUTHORIZED' })
   }
-  return next({
-    ctx,
-  })
+
+  return await opts.next()
 })

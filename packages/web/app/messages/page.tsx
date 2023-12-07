@@ -1,10 +1,10 @@
 import { redirect } from 'next/navigation'
 
-import { auth } from '@/src/lib/auth'
+import { getSession } from '@/src/lib/session'
 import { MessagesView } from '@/src/views/messages'
 
 export default async function Messages() {
-  const session = await auth()
+  const session = await getSession()
 
   if (!session) {
     // TODO add toast

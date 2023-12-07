@@ -1,18 +1,18 @@
 import { Avatar, Button, Chip, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger, Switch } from '@nextui-org/react'
-import { signOut } from 'next-auth/react'
+import { useWallet } from '@solana/wallet-adapter-react'
 import Link from 'next/link'
 import { useCallback } from 'react'
-import toast from 'react-hot-toast/headless'
-import { LuCog, LuIceCream, LuLogOut, LuMessagesSquare, LuMoon, LuPenSquare, LuSun, LuUser } from 'react-icons/lu'
+import { LuCog, LuLogOut, LuMessagesSquare, LuMoon, LuPenSquare, LuSun, LuUser } from 'react-icons/lu'
 
 import { useDarkMode } from '../lib/hooks'
 
 export const ProfileMenu = () => {
   const { isDarkMode, toggleDarkMode } = useDarkMode()
 
+  const wallet = useWallet()
+
   const handleDisconnect = useCallback(async () => {
-    await signOut()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    await wallet.disconnect()
   }, [])
 
   return (

@@ -1,12 +1,18 @@
-import { createNextApiHandler } from '@trpc/server/adapters/next'
+import { fetchRequestHandler } from '@trpc/server/adapters/fetch'
+import { NextRequest } from 'next/server'
 
-import { AppRouter, appRouter, createContext } from '@/src/server/app'
+import { appRouter } from '@/src/server/root'
+import { createTRPCContext } from '@/src/server/trpc'
 
 export const runtime = 'edge'
 
-const nextApiHandler = createNextApiHandler<AppRouter>({
-  router: appRouter,
-  createContext,
-})
+async function handler(req: NextRequest) {
+  return fetchRequestHandler({
+    endpoint: '/api/trpc',
+    router: appRouter,
+    req,
+    createContext: createTRPCContext,
+  })
+}
 
-export { nextApiHandler as GET, nextApiHandler as POST }
+export { handler as POST, handler as GET }

@@ -3,17 +3,15 @@
 import { ProfileMenu } from './profile-menu'
 import { WalletConnectButton } from './wallet-connect-button'
 import { Badge, Button, Link, Navbar, NavbarBrand, NavbarContent, NavbarItem } from '@nextui-org/react'
-import { useConnection, useWallet } from '@solana/wallet-adapter-react'
-import { useSession } from 'next-auth/react'
-import { useEffect } from 'react'
-import toast from 'react-hot-toast'
+import { useWallet } from '@solana/wallet-adapter-react'
 import { LuMoon, LuSun } from 'react-icons/lu'
 
 import { useDarkMode } from '../lib/hooks'
 
 export const NavBar = () => {
   const { isDarkMode, toggleDarkMode } = useDarkMode()
-  const session = useSession()
+
+  const session = {}
 
   const { connected, publicKey } = useWallet()
 
@@ -31,7 +29,7 @@ export const NavBar = () => {
       </NavbarBrand>
 
       <NavbarContent justify="end">
-        {session.status === 'authenticated' && connected ? (
+        {!session && connected ? (
           <NavbarItem>
             {notificationCount > 0 ? (
               <Badge content={notificationCount} color="primary" classNames={{ base: 'mt-2' }}>

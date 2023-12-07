@@ -21,7 +21,7 @@ const config: Config = {
     },
   },
   darkMode: 'class',
-  plugins: [nextui(), typography()],
+  plugins: [nextui(), typography(), require('@tailwindcss/container-queries')],
 }
 
 export default config

@@ -22,7 +22,7 @@ export const nextAuthConfig: NextAuthConfig = {
           type: 'text',
         },
       },
-      authorize: async ({ message, signature }, req) => {
+      authorize: async ({ message, signature }) => {
         try {
           const signinMessage = new SigninMessage(JSON.parse((message as string) ?? '{}') as SignMessage)
 
