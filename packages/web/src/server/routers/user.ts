@@ -1,20 +1,18 @@
 import { SolanaSignInInput, SolanaSignInOutput } from '@solana/wallet-standard-features'
 import { verifySignIn } from '@solana/wallet-standard-util'
 import { TRPCError } from '@trpc/server'
-import bs58 from 'bs58'
 import { createInsertSchema, createSelectSchema } from 'drizzle-zod'
-import nacl from 'tweetnacl'
-import { decodeUTF8, encodeUTF8 } from 'tweetnacl-util'
+import { IronSession } from 'iron-session'
 import { z } from 'zod'
 
 import { db } from '@/src/db'
 import { profiles, users } from '@/src/db/schema/user'
+import { SessionData } from '@/src/lib/session'
 
 import { isAuthorized } from '../middleware'
 import { createTRPCRouter, publicProcedure } from '../trpc'
 
 // users
-
 export const insertUserSchema = createInsertSchema(users)
 
 export const createUserSchema = insertUserSchema.omit({ id: true, joinTimestamp: true })
@@ -22,7 +20,6 @@ export const createUserSchema = insertUserSchema.omit({ id: true, joinTimestamp:
 export const selectUserSchema = createSelectSchema(users)
 
 // profiles
-
 export const insertProfileSchema = createInsertSchema(profiles)
 
 export const createProfileSchema = insertProfileSchema.omit({ id: true })
@@ -30,7 +27,6 @@ export const createProfileSchema = insertProfileSchema.omit({ id: true })
 export const selectProfleSchema = createSelectSchema(profiles)
 
 // routers
-
 export const userRouter = createTRPCRouter({
   createUser: publicProcedure.input(createUserSchema).mutation(async (opts) => {
     const { input } = opts
@@ -89,53 +85,43 @@ export const authRouter = createTRPCRouter({
 
       try {
         const res = JSON.parse(payload)
-        const signatureUint8 = bs58.decode(res.output.signature)
-        // const msgUint8 = new TextEncoder().encode(res.output.signedMessage.toString())
-        // const pubKeyUint8 = bs58.decode(res.output.account.publicKey)
+        const { input, output } = res
 
-        // const isValid = nacl.sign.detached.verify(msgUint8, signatureUint8, pubKeyUint8)
-        // const isValid = verifySignIn(res.input, res.output)
-        const isValid = true
-        console.log(isValid)
+        if (!input || !output) {
+          throw new TRPCError({ code: 'BAD_REQUEST' })
+        }
 
-        if (!isValid) {
-          return Response.json({ error: 'Invalid signature' }, { status: 401 })
+        const isValid = await verifySIWS(res.input, res.output)
+
+        if (isValid) {
+          throw new TRPCError({ code: 'UNAUTHORIZED' })
         }
 
         session.isLoggedIn = true
         session.publicKey = res.output.account.address
         await session.save()
 
-        return Response.json({ isValid, session })
+        return session
       } catch (e) {
-        console.log('error', e)
-
-        // return Response.json({ error: 'Invalid signature' }, { status: 401 })
-      }
-
-      return
-
-      try {
-        const response = await fetch('http://localhost:3000/api/auth', {
-          method: 'POST',
-          body: payload,
-        })
-
-        return await response.json()
-      } catch (error) {
-        console.error(error)
+        return { isLoggedIn: false } as IronSession<SessionData>
       }
     }),
+})
+
+export const profileRouter = createTRPCRouter({
+  getProfiles: publicProcedure.query(async () => {
+    return await db.query.profiles.findMany()
+  }),
 })
 
 function verifySIWS(input: SolanaSignInInput, output: SolanaSignInOutput): boolean {
   const serialisedOutput: SolanaSignInOutput = {
     account: {
       ...output.account,
-      publicKey: new Uint8Array(Buffer.from(output.account.publicKey.toString())),
+      publicKey: new Uint8Array(Object.values(output.account.publicKey)),
     },
-    signature: new Uint8Array(Buffer.from(output.signature.toString())),
-    signedMessage: new Uint8Array(Buffer.from(output.signedMessage.toString())),
+    signature: new Uint8Array(Buffer.from(output.signature)),
+    signedMessage: new Uint8Array(Buffer.from(output.signedMessage)),
   }
   return verifySignIn(input, serialisedOutput)
 }
