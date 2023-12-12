@@ -1,4 +1,4 @@
-import { Avatar, Card, Skeleton } from '@nextui-org/react'
+import { Skeleton } from '@nextui-org/skeleton'
 
 export default function JournalSkeleton() {
   return (

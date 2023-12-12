@@ -1,6 +1,8 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 
+import { Session } from '../lib/session'
+
 interface User {
   name: string
   avatar: string
@@ -13,6 +15,8 @@ interface User {
 interface UserState {
   user?: User
   setUser: (user: User) => void
+  session?: Session
+  setSession: (session?: Session) => void
 }
 
 export const useUserStore = create<UserState>()(
@@ -26,6 +30,8 @@ export const useUserStore = create<UserState>()(
         publicKey: 'toly.sol',
       } as User,
       setUser: (user: User) => set({ user }),
+      session: { isLoggedIn: false } as Session,
+      setSession: (session?: Session) => set({ session }),
     }),
     {
       name: 'blockspace-user', // unique name

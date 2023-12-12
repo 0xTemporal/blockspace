@@ -1,10 +1,9 @@
 import { initTRPC } from '@trpc/server'
 import { type FetchCreateContextFnOptions } from '@trpc/server/adapters/fetch'
-import { IronSession } from 'iron-session'
 import superjson from 'superjson'
 import { ZodError } from 'zod'
 
-import { SessionData, getSession } from '../lib/session'
+import { Session, getSession } from '../lib/session'
 
 /**
  * YOU PROBABLY DON'T NEED TO EDIT THIS FILE, UNLESS:
@@ -25,7 +24,7 @@ import { SessionData, getSession } from '../lib/session'
 
 type CreateContextOptions = {
   req: Request
-  session: IronSession<SessionData>
+  session: Session
 }
 
 /**

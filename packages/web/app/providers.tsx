@@ -12,7 +12,6 @@ import { NextUIProvider } from '@nextui-org/react'
 import { Adapter } from '@solana/wallet-adapter-base'
 import { ConnectionProvider, WalletProvider, useConnection, useWallet } from '@solana/wallet-adapter-react'
 import { WalletModalProvider } from '@solana/wallet-adapter-react-ui'
-import { UnsafeBurnerWalletAdapter } from '@solana/wallet-adapter-wallets'
 import { SolanaSignInInput } from '@solana/wallet-standard-features'
 import { ThemeProvider } from 'next-themes'
 import { useRouter } from 'next/navigation'
@@ -76,7 +75,7 @@ export function PHProvider({ children }: { children: React.ReactNode }) {
 
 export const BaseProvider = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter()
-  const wallets = useMemo(() => [new UnsafeBurnerWalletAdapter()], [])
+  const wallets = useMemo(() => [], [])
 
   const autoSignIn = useCallback(async (adapter: Adapter) => {
     // If the signIn feature is not available, return true

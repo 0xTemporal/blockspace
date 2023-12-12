@@ -3,17 +3,15 @@
 import { ProfileMenu } from './profile-menu'
 import { WalletConnectButton } from './wallet-connect-button'
 import { Badge, Button, Link, Navbar, NavbarBrand, NavbarContent, NavbarItem } from '@nextui-org/react'
-import { useWallet } from '@solana/wallet-adapter-react'
 import { LuMoon, LuSun } from 'react-icons/lu'
 
 import { useDarkMode } from '../lib/hooks'
+import { useUserStore } from '../state'
 
 export const NavBar = () => {
   const { isDarkMode, toggleDarkMode } = useDarkMode()
 
-  const session = {}
-
-  const { connected, publicKey } = useWallet()
+  const { session } = useUserStore()
 
   // const { result } = useFavoriteDomain(connection, publicKey?.toBase58());
   // const pfp = useProfilePic(connection, `${result?.domain!}.sol`);
@@ -29,7 +27,7 @@ export const NavBar = () => {
       </NavbarBrand>
 
       <NavbarContent justify="end">
-        {!session && connected ? (
+        {session?.isLoggedIn ? (
           <NavbarItem>
             {notificationCount > 0 ? (
               <Badge content={notificationCount} color="primary" classNames={{ base: 'mt-2' }}>

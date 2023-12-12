@@ -9,6 +9,10 @@ import { useCallback, useEffect, useState } from 'react'
 
 import { client } from '../api'
 
+import { set } from '@coral-xyz/anchor/dist/cjs/utils/features'
+
+import { useUserStore } from '../state/user'
+
 // import { signInWithSolana } from '../lib/siws'
 
 export const WalletConnectButton = (props: ButtonProps) => {
@@ -16,6 +20,7 @@ export const WalletConnectButton = (props: ButtonProps) => {
   const { walletIcon, walletName } = useWalletConnectButton()
   const { publicKey, signMessage, connect, signIn } = useWallet()
   const [connecting, setConnecting] = useState(false)
+  const { setSession } = useUserStore()
 
   useEffect(() => {
     if (walletName !== undefined) {
@@ -46,7 +51,7 @@ export const WalletConnectButton = (props: ButtonProps) => {
 
       const response = await client.auth.verifySignIn.mutate({ payload })
 
-      console.log(response)
+      setSession(response)
     } catch (e) {
       console.log(e)
     } finally {

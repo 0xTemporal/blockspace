@@ -2,6 +2,8 @@ import { Metadata } from 'next'
 
 import { PostView } from '@/src/views/post'
 
+export const runtime = 'edge'
+
 const truncateAddress = (address: string, charCount: number = 6) =>
   `${address.slice(0, charCount)}...${address.slice(-charCount)}`
 

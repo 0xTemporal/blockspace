@@ -48,6 +48,11 @@ export const userRouter = createTRPCRouter({
   getUsers: publicProcedure.query(async () => {
     return await db.query.users.findMany()
   }),
+  getSession: publicProcedure.query(async ({ ctx }) => {
+    const { session } = ctx
+
+    return session
+  }),
 })
 
 export const authRouter = createTRPCRouter({
@@ -57,7 +62,6 @@ export const authRouter = createTRPCRouter({
     const currentUrl = new URL(uri)
     const domain = currentUrl.host
 
-    // Convert the Date object to a string
     const currentDateTime = now.toISOString()
 
     const signInData: SolanaSignInInput = {
@@ -93,7 +97,7 @@ export const authRouter = createTRPCRouter({
 
         const isValid = await verifySIWS(res.input, res.output)
 
-        if (isValid) {
+        if (!isValid) {
           throw new TRPCError({ code: 'UNAUTHORIZED' })
         }
 
@@ -103,9 +107,17 @@ export const authRouter = createTRPCRouter({
 
         return session
       } catch (e) {
+        console.log(e)
         return { isLoggedIn: false } as IronSession<SessionData>
       }
     }),
+  logOut: publicProcedure.mutation(async ({ ctx }) => {
+    const { session } = ctx
+
+    session.destroy()
+
+    return session
+  }),
 })
 
 export const profileRouter = createTRPCRouter({

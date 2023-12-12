@@ -4,14 +4,21 @@ import Link from 'next/link'
 import { useCallback } from 'react'
 import { LuCog, LuLogOut, LuMessagesSquare, LuMoon, LuPenSquare, LuSun, LuUser } from 'react-icons/lu'
 
+import { client } from '../api'
+
 import { useDarkMode } from '../lib/hooks'
+import { useUserStore } from '../state/user'
 
 export const ProfileMenu = () => {
   const { isDarkMode, toggleDarkMode } = useDarkMode()
 
+  const { setSession } = useUserStore()
+
   const wallet = useWallet()
 
   const handleDisconnect = useCallback(async () => {
+    const session = await client.auth.logOut.mutate()
+    setSession(session)
     await wallet.disconnect()
   }, [])
 

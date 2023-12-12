@@ -1,4 +1,4 @@
-import { SessionOptions, getIronSession } from 'iron-session'
+import { IronSession, SessionOptions, getIronSession } from 'iron-session'
 import { cookies } from 'next/headers'
 
 export const sessionOptions: SessionOptions = {
@@ -15,6 +15,8 @@ export interface SessionData {
   publicKey?: string
   isLoggedIn: boolean
 }
+
+export type Session = IronSession<SessionData>
 
 export const defaultSession: SessionData = {
   isLoggedIn: false,
