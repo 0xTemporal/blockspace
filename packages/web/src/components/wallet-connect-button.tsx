@@ -9,11 +9,7 @@ import { useCallback, useEffect, useState } from 'react'
 
 import { client } from '../api'
 
-import { set } from '@coral-xyz/anchor/dist/cjs/utils/features'
-
 import { useUserStore } from '../state/user'
-
-// import { signInWithSolana } from '../lib/siws'
 
 export const WalletConnectButton = (props: ButtonProps) => {
   const { setVisible } = useWalletModal()
@@ -57,7 +53,6 @@ export const WalletConnectButton = (props: ButtonProps) => {
     } finally {
       setConnecting(false)
     }
-    // signInWithSolana(publicKey!, signMessage!)
   }, [publicKey, signMessage])
 
   return walletName === undefined ? (

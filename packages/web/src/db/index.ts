@@ -1,9 +1,7 @@
 import * as schema from './schema'
-// import Database from 'bun:sqlite'
-// import { drizzle } from 'drizzle-orm/bun-sqlite'
-import { drizzle } from 'drizzle-orm/d1'
+import { createClient } from '@libsql/client'
+import { drizzle } from 'drizzle-orm/libsql'
 
-export const db = drizzle(process.env.DB!, { schema })
+export const client = createClient({ url: process.env['DATABASE_URL']!, authToken: process.env['DATABASE_AUTH_TOKEN'] })
 
-// const sqlite = new Database('sqlite.db')
-// export const db = drizzle(sqlite, { schema })
+export const db = drizzle(client, { schema })

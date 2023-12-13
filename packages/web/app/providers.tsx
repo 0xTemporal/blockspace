@@ -9,16 +9,13 @@ import {
 } from '@dialectlabs/react-sdk-blockchain-solana'
 import { DialectNoBlockchainSdk, DialectThemeProvider, DialectUiManagementProvider } from '@dialectlabs/react-ui'
 import { NextUIProvider } from '@nextui-org/react'
-import { Adapter } from '@solana/wallet-adapter-base'
 import { ConnectionProvider, WalletProvider, useConnection, useWallet } from '@solana/wallet-adapter-react'
 import { WalletModalProvider } from '@solana/wallet-adapter-react-ui'
-import { SolanaSignInInput } from '@solana/wallet-standard-features'
 import { ThemeProvider } from 'next-themes'
 import { useRouter } from 'next/navigation'
-import { usePathname, useSearchParams } from 'next/navigation'
 import posthog from 'posthog-js'
 import { PostHogProvider } from 'posthog-js/react'
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
 import { Toaster } from '@/src/components/toaster'
 import { solanaWalletToDialectWallet } from '@/src/lib/dialect'
@@ -77,38 +74,12 @@ export const BaseProvider = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter()
   const wallets = useMemo(() => [], [])
 
-  const autoSignIn = useCallback(async (adapter: Adapter) => {
-    // If the signIn feature is not available, return true
-    if (!('signIn' in adapter)) return true
-
-    // Fetch the signInInput from the backend
-    const createResponse = await fetch('/api/auth')
-
-    const input: SolanaSignInInput = await createResponse.json()
-
-    // Send the signInInput to the wallet and trigger a sign-in request
-    const output = await adapter.signIn(input)
-
-    // Verify the sign-in output against the generated input server-side
-    let strPayload = JSON.stringify({ input, output })
-    const verifyResponse = await fetch('/api/auth', {
-      method: 'POST',
-      body: strPayload,
-    })
-    const success = await verifyResponse.json()
-
-    // If verification fails, throw an error
-    if (!success) throw new Error('Sign In verification failed!')
-
-    return false
-  }, [])
-
   return (
     <NextUIProvider navigate={router.push}>
       <ThemeProvider attribute="class" defaultTheme="dark">
         <PHProvider>
           <ConnectionProvider endpoint={`https://mainnet.helius-rpc.com/?api-key=${process.env.HELIUS_API_KEY}`}>
-            <WalletProvider wallets={wallets} autoConnect={autoSignIn}>
+            <WalletProvider wallets={wallets}>
               <DialectProvider>
                 <DialectThemeProvider>
                   <DialectUiManagementProvider>
