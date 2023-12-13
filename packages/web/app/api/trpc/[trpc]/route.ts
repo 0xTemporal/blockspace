@@ -8,7 +8,7 @@ export const runtime = 'edge'
 
 async function handler(req: NextRequest) {
   return fetchRequestHandler({
-    endpoint: '/api/trpc',
+    endpoint: process.env['BASE_URL'] + '/api/trpc',
     router: appRouter,
     req,
     createContext: createTRPCContext,
