@@ -29,41 +29,23 @@ export const ProfileMenu = () => {
       </DropdownTrigger>
       <DropdownMenu>
         <DropdownItem as={Link} href={`/toly`}>
-          <span className="flex w-full items-center justify-between">
-            Profile
-            <span className="mr-1 text-foreground/50">
-              <LuUser />
-            </span>
-          </span>
+          Profile
         </DropdownItem>
         <DropdownItem as={Link} href="/messages">
           <span className="flex w-full items-center justify-between">
-            <span className="flex items-center gap-x-2">
-              Messages
+            <span className="flex items-center gap-x-2">Messages</span>
+            <span className="mr-1 text-foreground/50">
               <Chip size="sm" color="primary">
                 5
               </Chip>
             </span>
-            <span className="mr-1 text-foreground/50">
-              <LuMessagesSquare />
-            </span>
           </span>
         </DropdownItem>
         <DropdownItem as={Link} href="/journal">
-          <span className="flex w-full items-center justify-between">
-            Journal
-            <span className="mr-1 text-foreground/50">
-              <LuPenSquare />
-            </span>
-          </span>
+          Journal
         </DropdownItem>
         <DropdownItem as={Link} href="/settings">
-          <span className="flex w-full items-center justify-between">
-            Settings
-            <span className="mr-1 text-foreground/50">
-              <LuCog />
-            </span>
-          </span>
+          Settings
         </DropdownItem>
         {/* <DropdownItem isReadOnly>
           <Button onClick={() => {}}>Toast</Button>
@@ -80,14 +62,7 @@ export const ProfileMenu = () => {
             Dark Mode
           </Switch>
         </DropdownItem>
-        <DropdownItem onClick={handleDisconnect}>
-          <span className="flex w-full items-center justify-between">
-            Disconnect
-            <span className="mr-1 text-foreground/50">
-              <LuLogOut />
-            </span>
-          </span>
-        </DropdownItem>
+        <DropdownItem onClick={handleDisconnect}>Disconnect</DropdownItem>
       </DropdownMenu>
     </Dropdown>
   )

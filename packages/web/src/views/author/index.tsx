@@ -22,7 +22,7 @@ export function AuthorView() {
           Wartime OSS maintainer. Co-founder of Solana Labs. Follows, retweets, likes are not endorsements. NFA, mostly
           technical gibberish. Be kind! toly@sollinked.com
         </p>
-        <div className="flex flex-col items-center gap-x-4 gap-y-2 text-sm text-foreground/50 sm:flex-row">
+        <div className="flex items-center gap-x-4 gap-y-2 text-sm text-foreground/50">
           <span className="flex items-center gap-x-1">
             <LuCake /> Joined on Jan 11, 2020
           </span>
@@ -45,10 +45,10 @@ export function AuthorView() {
       <div className="container px-8 xl:px-64">
         <div className="flex flex-col gap-y-4">
           {posts.map((_, i) => (
-            <>
-              {i > 0 ? <Divider key={i} /> : null}
-              <PostPreview author={author} avatar={avatar} key={i} />
-            </>
+            <div key={i}>
+              {i > 0 ? <Divider /> : null}
+              <PostPreview author={author} avatar={avatar} />
+            </div>
           ))}
         </div>
       </div>

@@ -1,6 +1,7 @@
 'use client'
 
 import { $convertToMarkdownString, TRANSFORMERS } from '@lexical/markdown'
+import { LexicalComposerContext } from '@lexical/react/LexicalComposerContext'
 import { Button } from '@nextui-org/react'
 import { EditorState } from 'lexical'
 import Link from 'next/link'
@@ -35,8 +36,8 @@ export function Journal() {
 
   return (
     <div className="relative">
-      <div className="container max-w-[68ch]">
-        <Editor onChange={onEditorChange} />
+      <div className="container">
+        <Editor />
       </div>
 
       <div className="fixed bottom-8 right-8 flex items-center gap-x-2 opacity-60 transition-opacity focus-within:opacity-100 hover:opacity-100">

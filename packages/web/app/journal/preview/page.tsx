@@ -33,7 +33,6 @@ export default function PostPage() {
                 {children}
               </Link>
             ),
-            p: (props) => <span className="p-2 transition-all hover:shadow" {...props} />,
           }}
         >
           {md}
