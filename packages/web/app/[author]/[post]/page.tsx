@@ -18,7 +18,7 @@ export async function generateMetadata({ params }): Promise<Metadata> {
     openGraph: {
       type: 'profile',
       username: 'toly',
-      images: 'https://pbs.twimg.com/profile_images/1725588229808889859/L6bOXam6_400x400.jpg',
+      images: '',
     },
   }
 }

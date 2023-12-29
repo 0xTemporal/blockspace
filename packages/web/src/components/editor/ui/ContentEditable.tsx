@@ -9,7 +9,5 @@ import { ContentEditable } from '@lexical/react/LexicalContentEditable'
 import * as React from 'react'
 
 export default function LexicalContentEditable({ className }: { className?: string }): JSX.Element {
-  return (
-    <ContentEditable className={`border-0 prose block relative outline-0 pt-4 px-7 pb-8 min-h-[150px] ${className}`} />
-  )
+  return <ContentEditable className={`border-0 prose block relative outline-0 pt-4 px-7 pb-8 ${className}`} />
 }

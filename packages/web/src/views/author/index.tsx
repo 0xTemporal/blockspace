@@ -9,7 +9,7 @@ import { PostPreview } from '@/src/components/post-preview'
 
 export function AuthorView() {
   const author = 'toly'
-  const avatar = 'https://pbs.twimg.com/profile_images/1725588229808889859/L6bOXam6_400x400.jpg'
+  const avatar = ''
   const posts = new Array(8).fill(0)
 
   return (

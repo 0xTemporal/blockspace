@@ -69,7 +69,7 @@ function LazyImage({
   maxWidth,
 }: {
   altText: string
-  className: string | null
+  className?: string
   height: 'inherit' | number
   imageRef: { current: null | HTMLImageElement }
   maxWidth: number
@@ -79,7 +79,7 @@ function LazyImage({
   useSuspenseImage(src)
   return (
     <NextImage
-      className={className || undefined}
+      classNames={{ img: className, wrapper: 'mx-auto' }}
       src={src}
       alt={altText}
       ref={imageRef}
@@ -305,13 +305,19 @@ export default function ImageComponent({
   }
 
   const draggable = isSelected && $isNodeSelection(selection) && !isResizing
-  const isFocused = isSelected || isResizing
+  // const isFocused = isSelected || isResizing
   return (
     <Suspense fallback={null}>
-      <>
+      <div className="w-full mb-6">
         <div draggable={draggable}>
           <LazyImage
-            className={isFocused ? `focused ${$isNodeSelection(selection) ? 'draggable' : ''}` : null}
+            // className={
+            //   isFocused
+            //     ? `outline-primary select-none active:cursor-grabbing ${
+            //         $isNodeSelection(selection) ? 'cursor-grab' : ''
+            //       }`
+            //     : null
+            // }
             src={src}
             altText={altText}
             imageRef={imageRef}
@@ -321,7 +327,7 @@ export default function ImageComponent({
           />
         </div>
         {showCaption && (
-          <div className="block absolute bottom-1 left-0 m-0 border-t min-w-[100px] overflow-hidden">
+          <div className="block border-t z-10 w-[50ch] relative overflow-hidden">
             <LexicalNestedComposer initialEditor={caption}>
               <AutoFocusPlugin />
               <LinkPlugin />
@@ -329,9 +335,9 @@ export default function ImageComponent({
               <KeywordsPlugin />
 
               <RichTextPlugin
-                contentEditable={<ContentEditable className="bg-foreground-50 min-w-[360px]" />}
+                contentEditable={<ContentEditable className="min-w-[96px]" />}
                 placeholder={
-                  <Placeholder className="text-foreground overflow-hidden absolute overflow-ellipsis inline-block pointer-events-none select-none top-2 left-2">
+                  <Placeholder className="text-foreground overflow-hidden absolute overflow-ellipsis inline-block pointer-events-none select-none top-4 left-7 w-[150px]">
                     Enter a caption...
                   </Placeholder>
                 }
@@ -340,8 +346,7 @@ export default function ImageComponent({
             </LexicalNestedComposer>
           </div>
         )}
-
-        {resizable && $isNodeSelection(selection) && isFocused && (
+        {/* {resizable && $isNodeSelection(selection) && isFocused && (
           <ImageResizer
             showCaption={showCaption}
             setShowCaption={setShowCaption}
@@ -353,8 +358,8 @@ export default function ImageComponent({
             onResizeEnd={onResizeEnd}
             captionsEnabled={captionsEnabled}
           />
-        )}
-      </>
+        )} */}
+      </div>
     </Suspense>
   )
 }

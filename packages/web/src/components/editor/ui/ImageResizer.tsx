@@ -221,49 +221,49 @@ export default function ImageResizer({
         </Button>
       )}
       <div
-        className="image-resizer image-resizer-n"
+        className="block w-[7px] h-[7px] absolute bg-red-400 border-white top-[-6px] left-[48%] cursor-n-resize"
         onPointerDown={(event) => {
           handlePointerDown(event, Direction.north)
         }}
       />
       <div
-        className="image-resizer image-resizer-ne"
+        className="block w-[7px] h-[7px] absolute bg-red-400 border-white top-[-6px] right-[-6px] cursor-ne-resize"
         onPointerDown={(event) => {
           handlePointerDown(event, Direction.north | Direction.east)
         }}
       />
       <div
-        className="image-resizer image-resizer-e"
+        className="block w-[7px] h-[7px] absolute bg-red-400 border-white bottom-[48%] right-[-6px] cursor-e-resize"
         onPointerDown={(event) => {
           handlePointerDown(event, Direction.east)
         }}
       />
       <div
-        className="image-resizer image-resizer-se"
+        className="block w-[7px] h-[7px] absolute bg-red-400 border-white bottom-[-2px] right-[-6px] cursor-nwse-resize"
         onPointerDown={(event) => {
           handlePointerDown(event, Direction.south | Direction.east)
         }}
       />
       <div
-        className="image-resizer image-resizer-s"
+        className="block w-[7px] h-[7px] absolute bg-red-400 border-white bottom-[-2px] left-[48%] cursor-s-resize"
         onPointerDown={(event) => {
           handlePointerDown(event, Direction.south)
         }}
       />
       <div
-        className="image-resizer image-resizer-sw"
+        className="block w-[7px] h-[7px] absolute bg-red-400 border-white bottom-[-2px] left-[-6px] cursor-sw-resize"
         onPointerDown={(event) => {
           handlePointerDown(event, Direction.south | Direction.west)
         }}
       />
       <div
-        className="image-resizer image-resizer-w"
+        className="block w-[7px] h-[7px] absolute bg-red-400 border-white bottom-[48%] left-[-6px] cursor-w-resize"
         onPointerDown={(event) => {
           handlePointerDown(event, Direction.west)
         }}
       />
       <div
-        className="image-resizer image-resizer-nw"
+        className="block w-[7px] h-[7px] absolute bg-red-400 border-white top-[-6px] left-[-6px] cursor-nw-resize"
         onPointerDown={(event) => {
           handlePointerDown(event, Direction.north | Direction.west)
         }}
