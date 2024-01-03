@@ -5,16 +5,13 @@
  * LICENSE file in the root directory of this source tree.
  *
  */
-
-import type {EditorThemeClasses} from 'lexical';
-
-import './StickyEditorTheme.css';
-
-import baseTheme from './PlaygroundEditorTheme';
+import baseTheme from './PlaygroundEditorTheme'
+import './StickyEditorTheme.css'
+import type { EditorThemeClasses } from 'lexical'
 
 const theme: EditorThemeClasses = {
   ...baseTheme,
   paragraph: 'StickyEditorTheme__paragraph',
-};
+}
 
-export default theme;
+export default theme

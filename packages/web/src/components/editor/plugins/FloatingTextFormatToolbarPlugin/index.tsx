@@ -10,7 +10,7 @@ import { $isLinkNode, TOGGLE_LINK_COMMAND } from '@lexical/link'
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext'
 import { mergeRegister } from '@lexical/utils'
 import { Card } from '@nextui-org/card'
-import { Button, ButtonGroup } from '@nextui-org/react'
+import { Button, ButtonGroup, CardBody, cn } from '@nextui-org/react'
 import {
   $getSelection,
   $isParagraphNode,
@@ -38,8 +38,6 @@ import {
 import { getDOMRangeRect } from '../../utils/getDOMRangeRect'
 import { getSelectedNode } from '../../utils/getSelectedNode'
 import { setFloatingElemPosition } from '../../utils/setFloatingElemPosition'
-
-import './index.css'
 
 function TextFormatFloatingToolbar({
   editor,
@@ -108,11 +106,11 @@ function TextFormatFloatingToolbar({
     }
   }, [popupCharStylesEditorRef])
 
+  const nativeSelection = window.getSelection()
+
   const updateTextFormatFloatingToolbar = useCallback(() => {
     const selection = $getSelection()
-
     const popupCharStylesEditorElem = popupCharStylesEditorRef.current
-    const nativeSelection = window.getSelection()
 
     if (popupCharStylesEditorElem === null) {
       return
@@ -177,8 +175,11 @@ function TextFormatFloatingToolbar({
   }, [editor, updateTextFormatFloatingToolbar])
 
   return (
-    <div ref={popupCharStylesEditorRef} className="floating-text-format-popup">
-      <ButtonGroup>
+    <Card
+      ref={popupCharStylesEditorRef}
+      className={cn('flex absolute z-10 bg-white top-0 left-0 opacity-0 !transition-opacity will-change-transform')}
+    >
+      <ButtonGroup as={CardBody} className="flex-row p-1.5">
         <Button
           onClick={() => {
             editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'bold')
@@ -274,7 +275,7 @@ function TextFormatFloatingToolbar({
           <LuLink aria-hidden />
         </Button>
       </ButtonGroup>
-    </div>
+    </Card>
   )
 }
 

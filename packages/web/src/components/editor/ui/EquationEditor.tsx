@@ -5,27 +5,24 @@
  * LICENSE file in the root directory of this source tree.
  *
  */
-
-import type {Ref, RefObject} from 'react';
-
-import './EquationEditor.css';
-
-import * as React from 'react';
-import {ChangeEvent, forwardRef} from 'react';
+import './EquationEditor.css'
+import type { Ref, RefObject } from 'react'
+import * as React from 'react'
+import { ChangeEvent, forwardRef } from 'react'
 
 type BaseEquationEditorProps = {
-  equation: string;
-  inline: boolean;
-  setEquation: (equation: string) => void;
-};
+  equation: string
+  inline: boolean
+  setEquation: (equation: string) => void
+}
 
 function EquationEditor(
-  {equation, setEquation, inline}: BaseEquationEditorProps,
+  { equation, setEquation, inline }: BaseEquationEditorProps,
   forwardedRef: Ref<HTMLInputElement | HTMLTextAreaElement>,
 ): JSX.Element {
   const onChange = (event: ChangeEvent) => {
-    setEquation((event.target as HTMLInputElement).value);
-  };
+    setEquation((event.target as HTMLInputElement).value)
+  }
 
   return inline && forwardedRef instanceof HTMLInputElement ? (
     <span className="EquationEditor_inputBackground">
@@ -50,7 +47,7 @@ function EquationEditor(
       />
       <span className="EquationEditor_dollarSign">{'\n$$'}</span>
     </div>
-  );
+  )
 }
 
-export default forwardRef(EquationEditor);
+export default forwardRef(EquationEditor)

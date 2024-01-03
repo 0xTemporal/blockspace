@@ -7,9 +7,15 @@ import { LuCake, LuKeyRound } from 'react-icons/lu'
 import { ColorBar } from '@/src/components/color-bar'
 import { PostPreview } from '@/src/components/post-preview'
 
-export function AuthorView() {
-  const author = 'toly'
+type AuthorViewProps = {
+  author: { name: string }
+}
+
+export function AuthorView({ author }: AuthorViewProps) {
+  // TODO: fetch author profile from db (avatar, bio, joindate, etc.)
   const avatar = ''
+
+  // TODO: fetch author posts from db
   const posts = new Array(8).fill(0)
 
   return (
@@ -17,7 +23,7 @@ export function AuthorView() {
       <ColorBar avatar={avatar} />
       <Card className="container -mt-16 mb-6 flex min-h-[100px] items-center gap-y-2 p-4 text-center">
         <Avatar size="lg" src={avatar} />
-        <h1 className="text-2xl font-semibold">{author}</h1>
+        <h1 className="text-2xl font-semibold">{author.name}</h1>
         <p className="w-3/ sm:w-1/2">
           Wartime OSS maintainer. Co-founder of Solana Labs. Follows, retweets, likes are not endorsements. NFA, mostly
           technical gibberish. Be kind! toly@sollinked.com
@@ -47,7 +53,7 @@ export function AuthorView() {
           {posts.map((_, i) => (
             <div key={i}>
               {i > 0 ? <Divider /> : null}
-              <PostPreview author={author} avatar={avatar} />
+              <PostPreview author={author.name} avatar={avatar} />
             </div>
           ))}
         </div>

@@ -2,7 +2,6 @@
 
 import { FastAverageColor } from 'fast-average-color'
 import { useEffect, useState } from 'react'
-import toast from 'react-hot-toast'
 import { twJoin } from 'tailwind-merge'
 
 const fac = new FastAverageColor()
@@ -18,8 +17,12 @@ export const ColorBar = ({ avatar, size = 'lg', className }: ColorBarProps) => {
 
   useEffect(() => {
     ;(async () => {
-      const { hex } = await fac.getColorAsync(avatar)
-      setColor(hex)
+      try {
+        const { hex } = await fac.getColorAsync(avatar)
+        setColor(hex)
+      } catch {
+        setColor('#333')
+      }
     })()
   }, [avatar])
 

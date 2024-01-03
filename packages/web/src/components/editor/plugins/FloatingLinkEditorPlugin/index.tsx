@@ -8,7 +8,7 @@
 import { $isAutoLinkNode, $isLinkNode, TOGGLE_LINK_COMMAND } from '@lexical/link'
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext'
 import { $findMatchingParent, mergeRegister } from '@lexical/utils'
-import { Button, ButtonGroup, Card, CardBody, Input } from '@nextui-org/react'
+import { Button, Card, CardBody, Input, cn } from '@nextui-org/react'
 import {
   $getSelection,
   $isRangeSelection,
@@ -24,13 +24,11 @@ import {
 import { Dispatch, useCallback, useEffect, useRef, useState } from 'react'
 import * as React from 'react'
 import { createPortal } from 'react-dom'
-import { LuCheck, LuCheckCircle, LuCheckCircle2, LuPencil, LuTrash, LuX, LuXCircle } from 'react-icons/lu'
+import { LuCheck, LuPencil, LuTrash, LuX } from 'react-icons/lu'
 
 import { getSelectedNode } from '../../utils/getSelectedNode'
 import { setFloatingElemPositionForLinkEditor } from '../../utils/setFloatingElemPositionForLinkEditor'
 import { sanitizeUrl } from '../../utils/url'
-
-import './index.css'
 
 function FloatingLinkEditor({
   editor,
@@ -93,7 +91,7 @@ function FloatingLinkEditor({
         setFloatingElemPositionForLinkEditor(domRect, editorElem, anchorElem)
       }
       setLastSelection(selection)
-    } else if (!activeElement || activeElement.className !== 'link-input') {
+    } else if (!activeElement) {
       if (rootElement !== null) {
         setFloatingElemPositionForLinkEditor(null, editorElem, anchorElem)
       }
@@ -192,80 +190,82 @@ function FloatingLinkEditor({
   }
 
   return (
-    <div
+    <Card
       ref={editorRef}
-      className="flex absolute z-10 w-[400px] top-0 left-0 opacity-0 transition-opacity will-change-transform"
+      className={
+        'flex absolute z-10 bg-white w-[400px] top-0 left-0 opacity-0 !transition-opacity will-change-transform'
+      }
     >
-      <Card shadow="lg" as="div" classNames={{ base: 'w-full m-0.5' }}>
-        {!isLink ? null : isLinkEditMode ? (
-          <CardBody>
-            <div className="flex items-center gap-x-1">
-              <Input
-                ref={inputRef}
-                value={editedLinkUrl}
-                size="sm"
-                onChange={(event) => {
-                  setEditedLinkUrl(event.target.value)
-                }}
-                onKeyDown={(event) => {
-                  monitorInputInteraction(event)
-                }}
-              />
-              <Button
-                variant="light"
-                isIconOnly
-                onMouseDown={(event) => event.preventDefault()}
-                onClick={() => setIsLinkEditMode(false)}
-              >
-                <LuX aria-hidden />
-              </Button>
-              <Button
-                variant="light"
-                color="primary"
-                isIconOnly
-                onMouseDown={(event) => event.preventDefault()}
-                onClick={handleLinkSubmission}
-              >
-                <LuCheck aria-hidden />
-              </Button>
-            </div>
-          </CardBody>
-        ) : (
-          <CardBody className="link-view">
-            <a
-              href={sanitizeUrl(linkUrl)}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-primary-400 hover:text-primary-600"
+      {!isLink ? (
+        <div />
+      ) : isLinkEditMode ? (
+        <CardBody className="p-1">
+          <div className="flex items-center gap-x-1">
+            <Input
+              ref={inputRef}
+              value={editedLinkUrl}
+              size="sm"
+              onChange={(event) => {
+                setEditedLinkUrl(event.target.value)
+              }}
+              onKeyDown={(event) => {
+                monitorInputInteraction(event)
+              }}
+            />
+            <Button
+              variant="light"
+              isIconOnly
+              onMouseDown={(event) => event.preventDefault()}
+              onClick={() => setIsLinkEditMode(false)}
             >
-              {linkUrl}
-            </a>
-            <div className="w-9 align-[-0.25em] absolute right-[54px] top-0 bottom-0 flex items-center gap-x-1">
-              <Button
-                variant="light"
-                isIconOnly
-                onMouseDown={(event) => event.preventDefault()}
-                onClick={() => {
-                  setIsLinkEditMode(true)
-                }}
-              >
-                <LuPencil aria-hidden />
-              </Button>
-              <Button
-                variant="light"
-                isIconOnly
-                onMouseDown={(event) => event.preventDefault()}
-                onClick={() => {
-                  editor.dispatchCommand(TOGGLE_LINK_COMMAND, null)
-                }}
-              >
-                <LuTrash aria-hidden />
-              </Button>
-            </div>
-          </CardBody>
-        )}
-      </Card>
-    </div>
+              <LuX aria-hidden />
+            </Button>
+            <Button
+              variant="light"
+              color="primary"
+              isIconOnly
+              onMouseDown={(event) => event.preventDefault()}
+              onClick={handleLinkSubmission}
+            >
+              <LuCheck aria-hidden />
+            </Button>
+          </div>
+        </CardBody>
+      ) : (
+        <CardBody className="link-view">
+          <a
+            href={sanitizeUrl(linkUrl)}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-primary-400 hover:text-primary-600 w-[calc(100%-84px)] truncate"
+          >
+            {linkUrl}
+          </a>
+          <div className="w-9 align-[-0.25em] absolute right-[54px] top-0 bottom-0 flex items-center gap-x-1">
+            <Button
+              variant="light"
+              isIconOnly
+              onMouseDown={(event) => event.preventDefault()}
+              onClick={() => {
+                setIsLinkEditMode(true)
+              }}
+            >
+              <LuPencil aria-hidden />
+            </Button>
+            <Button
+              variant="light"
+              isIconOnly
+              onMouseDown={(event) => event.preventDefault()}
+              onClick={() => {
+                editor.dispatchCommand(TOGGLE_LINK_COMMAND, null)
+              }}
+            >
+              <LuTrash aria-hidden />
+            </Button>
+          </div>
+        </CardBody>
+      )}
+    </Card>
   )
 }
 
