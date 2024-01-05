@@ -192,15 +192,13 @@ function FloatingLinkEditor({
   return (
     <Card
       ref={editorRef}
-      className={
-        'flex absolute z-10 bg-white w-[400px] top-0 left-0 opacity-0 !transition-opacity will-change-transform'
-      }
+      className={'flex absolute z-10 w-[400px] top-0 left-0 opacity-0 !transition-opacity will-change-transform'}
     >
       {!isLink ? (
         <div />
       ) : isLinkEditMode ? (
         <CardBody className="p-1">
-          <div className="flex items-center gap-x-1">
+          <div className="flex items-center gap-x-1 mr-1">
             <Input
               ref={inputRef}
               value={editedLinkUrl}

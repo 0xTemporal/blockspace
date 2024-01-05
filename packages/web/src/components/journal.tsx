@@ -1,7 +1,6 @@
 'use client'
 
 import { $convertToMarkdownString, TRANSFORMERS } from '@lexical/markdown'
-import { LexicalComposerContext } from '@lexical/react/LexicalComposerContext'
 import { Button } from '@nextui-org/react'
 import { EditorState } from 'lexical'
 import Link from 'next/link'
@@ -36,7 +35,7 @@ export function Journal() {
 
   return (
     <div className="relative">
-      <div className="container">
+      <div className="container editor-shell">
         <Editor />
       </div>
 

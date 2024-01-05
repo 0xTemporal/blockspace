@@ -49,10 +49,10 @@ export function AuthorView({ author }: AuthorViewProps) {
         </div>
       </Card>
       <div className="container px-8 xl:px-64">
-        <div className="flex flex-col gap-y-4">
+        <div className="flex flex-col gap-y-2">
           {posts.map((_, i) => (
             <div key={i}>
-              {i > 0 ? <Divider /> : null}
+              {i > 0 ? <Divider className="mb-4" /> : null}
               <PostPreview author={author.name} avatar={avatar} />
             </div>
           ))}

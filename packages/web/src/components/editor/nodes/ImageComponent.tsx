@@ -11,6 +11,7 @@ import { AutoFocusPlugin } from '@lexical/react/LexicalAutoFocusPlugin'
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext'
 import LexicalErrorBoundary from '@lexical/react/LexicalErrorBoundary'
 import { HashtagPlugin } from '@lexical/react/LexicalHashtagPlugin'
+import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin'
 import { LexicalNestedComposer } from '@lexical/react/LexicalNestedComposer'
 import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin'
 import { useLexicalNodeSelection } from '@lexical/react/useLexicalNodeSelection'
@@ -35,6 +36,8 @@ import {
 } from 'lexical'
 import * as React from 'react'
 import { Suspense, useCallback, useEffect, useRef, useState } from 'react'
+
+import { useSharedHistoryContext } from '../context/SharedHistoryContext'
 
 import KeywordsPlugin from '../plugins/KeywordsPlugin'
 import LinkPlugin from '../plugins/LinkPlugin'
@@ -123,6 +126,8 @@ export default function ImageComponent({
   const [editor] = useLexicalComposerContext()
   const [selection, setSelection] = useState<BaseSelection | null>(null)
   const activeEditorRef = useRef<LexicalEditor | null>(null)
+
+  const { historyState } = useSharedHistoryContext()
 
   const onDelete = useCallback(
     (payload: KeyboardEvent) => {
@@ -305,61 +310,46 @@ export default function ImageComponent({
   }
 
   const draggable = isSelected && $isNodeSelection(selection) && !isResizing
-  // const isFocused = isSelected || isResizing
+  const isFocused = isSelected || isResizing
   return (
     <Suspense fallback={null}>
-      <div className="w-full mb-6">
-        <div draggable={draggable}>
-          <LazyImage
-            // className={
-            //   isFocused
-            //     ? `outline-primary select-none active:cursor-grabbing ${
-            //         $isNodeSelection(selection) ? 'cursor-grab' : ''
-            //       }`
-            //     : null
-            // }
-            src={src}
-            altText={altText}
-            imageRef={imageRef}
-            width={width}
-            height={height}
-            maxWidth={maxWidth}
-          />
-        </div>
-        {showCaption && (
-          <div className="block border-t z-10 w-[50ch] relative overflow-hidden">
-            <LexicalNestedComposer initialEditor={caption}>
-              <AutoFocusPlugin />
-              <LinkPlugin />
-              <HashtagPlugin />
-              <KeywordsPlugin />
-
-              <RichTextPlugin
-                contentEditable={<ContentEditable className="min-w-[96px]" />}
-                placeholder={
-                  <Placeholder className="text-foreground overflow-hidden absolute overflow-ellipsis inline-block pointer-events-none select-none top-4 left-7 w-[150px]">
-                    Enter a caption...
-                  </Placeholder>
-                }
-                ErrorBoundary={LexicalErrorBoundary}
-              />
-            </LexicalNestedComposer>
-          </div>
-        )}
-        {/* {resizable && $isNodeSelection(selection) && isFocused && (
-          <ImageResizer
-            showCaption={showCaption}
-            setShowCaption={setShowCaption}
-            editor={editor}
-            buttonRef={buttonRef}
-            imageRef={imageRef}
-            maxWidth={maxWidth}
-            onResizeStart={onResizeStart}
-            onResizeEnd={onResizeEnd}
-            captionsEnabled={captionsEnabled}
-          />
-        )} */}
+      <div draggable={draggable}>
+        <LazyImage src={src} altText={altText} imageRef={imageRef} width={width} height={height} maxWidth={maxWidth} />
       </div>
+      {showCaption && (
+        <div className="absolute border-t border-background rounded-b-xl z-10 w-[50ch] overflow-hidden bottom-0 min-h-[64px] right-[47px] rounded-b-x bg-background/75">
+          <LexicalNestedComposer initialEditor={caption}>
+            <AutoFocusPlugin />
+            <LinkPlugin />
+            <HashtagPlugin />
+            <KeywordsPlugin />
+            <HistoryPlugin externalHistoryState={historyState} />
+
+            <RichTextPlugin
+              contentEditable={<ContentEditable className="min-w-[96px] !p-2 !h-full" />}
+              placeholder={
+                <Placeholder className="text-foreground overflow-hidden absolute overflow-ellipsis inline-block pointer-events-none select-none top-2 left-2">
+                  Enter a caption...
+                </Placeholder>
+              }
+              ErrorBoundary={LexicalErrorBoundary}
+            />
+          </LexicalNestedComposer>
+        </div>
+      )}
+      {resizable && $isNodeSelection(selection) && isFocused && (
+        <ImageResizer
+          showCaption={showCaption}
+          setShowCaption={setShowCaption}
+          editor={editor}
+          buttonRef={buttonRef}
+          imageRef={imageRef}
+          maxWidth={maxWidth}
+          onResizeStart={onResizeStart}
+          onResizeEnd={onResizeEnd}
+          captionsEnabled={captionsEnabled}
+        />
+      )}
     </Suspense>
   )
 }

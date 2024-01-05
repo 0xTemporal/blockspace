@@ -20,10 +20,10 @@ export const profiles = sqliteTable('profiles', {
   name: text('name'),
   username: text('user'),
   avatar: text('avatar'),
+  slug: text('slug'),
   bio: text('bio'),
   twitterHandle: text('twitter_handle'),
   userId: integer('user_id').references(() => users.id),
-  blogName: text('blog_name'),
   tipEnabled: integer('tip_enabled', { mode: 'boolean' }).default(false),
 })
 

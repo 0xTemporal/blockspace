@@ -63,7 +63,7 @@ export const Author = ({ avatar, author }: AuthorProps) => {
           {author}
         </Link>
 
-        <span className="text-foreground/60">Today</span>
+        <span className="text-foreground/60">toly.sol</span>
       </span>
     </div>
   )

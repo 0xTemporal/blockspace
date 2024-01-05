@@ -216,58 +216,59 @@ export default function ImageResizer({
           onClick={() => {
             setShowCaption(!showCaption)
           }}
+          className="z-10 absolute bottom-4 right-0 left-0 w-fit mx-auto"
         >
           Add Caption
         </Button>
       )}
-      <div
-        className="block w-[7px] h-[7px] absolute bg-red-400 border-white top-[-6px] left-[48%] cursor-n-resize"
+      {/* <div
+        className="block w-[7px] h-[7px] absolute bg-primary border-white top-[52px] left-[48%] cursor-n-resize"
         onPointerDown={(event) => {
           handlePointerDown(event, Direction.north)
         }}
       />
       <div
-        className="block w-[7px] h-[7px] absolute bg-red-400 border-white top-[-6px] right-[-6px] cursor-ne-resize"
+        className="block w-[7px] h-[7px] absolute bg-primary border-white top-[52px] -right-1 cursor-ne-resize"
         onPointerDown={(event) => {
           handlePointerDown(event, Direction.north | Direction.east)
         }}
       />
       <div
-        className="block w-[7px] h-[7px] absolute bg-red-400 border-white bottom-[48%] right-[-6px] cursor-e-resize"
+        className="block w-[7px] h-[7px] absolute bg-primary border-white bottom-[55%] right-[-6px] cursor-e-resize"
         onPointerDown={(event) => {
           handlePointerDown(event, Direction.east)
         }}
       />
       <div
-        className="block w-[7px] h-[7px] absolute bg-red-400 border-white bottom-[-2px] right-[-6px] cursor-nwse-resize"
+        className="block w-[7px] h-[7px] absolute bg-primary border-white bottom-[-2px] right-[-6px] cursor-nwse-resize"
         onPointerDown={(event) => {
           handlePointerDown(event, Direction.south | Direction.east)
         }}
       />
       <div
-        className="block w-[7px] h-[7px] absolute bg-red-400 border-white bottom-[-2px] left-[48%] cursor-s-resize"
+        className="block w-[7px] h-[7px] absolute bg-primary border-white bottom-[-2px] left-[48%] cursor-s-resize"
         onPointerDown={(event) => {
           handlePointerDown(event, Direction.south)
         }}
       />
       <div
-        className="block w-[7px] h-[7px] absolute bg-red-400 border-white bottom-[-2px] left-[-6px] cursor-sw-resize"
+        className="block w-[7px] h-[7px] absolute bg-primary border-white bottom-[-2px] left-[-6px] cursor-sw-resize"
         onPointerDown={(event) => {
           handlePointerDown(event, Direction.south | Direction.west)
         }}
       />
       <div
-        className="block w-[7px] h-[7px] absolute bg-red-400 border-white bottom-[48%] left-[-6px] cursor-w-resize"
+        className="block w-[7px] h-[7px] absolute bg-primary border-white bottom-[48%] left-[-6px] cursor-w-resize"
         onPointerDown={(event) => {
           handlePointerDown(event, Direction.west)
         }}
       />
       <div
-        className="block w-[7px] h-[7px] absolute bg-red-400 border-white top-[-6px] left-[-6px] cursor-nw-resize"
+        className="block w-[7px] h-[7px] absolute bg-primary border-white top-[-6px] left-[-6px] cursor-nw-resize"
         onPointerDown={(event) => {
           handlePointerDown(event, Direction.north | Direction.west)
         }}
-      />
+      /> */}
     </div>
   )
 }

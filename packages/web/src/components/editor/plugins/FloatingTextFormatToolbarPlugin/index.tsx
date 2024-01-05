@@ -177,9 +177,9 @@ function TextFormatFloatingToolbar({
   return (
     <Card
       ref={popupCharStylesEditorRef}
-      className={cn('flex absolute z-10 bg-white top-0 left-0 opacity-0 !transition-opacity will-change-transform')}
+      className="flex absolute z-10 top-0 left-0 opacity-0 !transition-opacity will-change-transform"
     >
-      <ButtonGroup as={CardBody} className="flex-row p-1.5">
+      <CardBody as={ButtonGroup} className="flex-row p-1.5">
         <Button
           onClick={() => {
             editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'bold')
@@ -274,7 +274,7 @@ function TextFormatFloatingToolbar({
         >
           <LuLink aria-hidden />
         </Button>
-      </ButtonGroup>
+      </CardBody>
     </Card>
   )
 }

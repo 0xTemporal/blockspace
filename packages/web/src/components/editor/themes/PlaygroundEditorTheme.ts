@@ -74,7 +74,7 @@ const theme: EditorThemeClasses = {
     focus: 'PlaygroundEditorTheme__embedBlockFocus',
   },
   hashtag: 'PlaygroundEditorTheme__hashtag',
-  image: 'editor-image relative',
+  image: 'editor-image',
   indent: 'PlaygroundEditorTheme__indent',
   inlineImage: 'inline-editor-image',
   layoutContainer: 'PlaygroundEditorTheme__layoutContaner',

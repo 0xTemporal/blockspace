@@ -1,8 +1,6 @@
 import { Author } from './author'
-import { ColorBar } from './color-bar'
-import { Avatar, Link, Tooltip } from '@nextui-org/react'
-import { BsTwitterX } from 'react-icons/bs'
-import { LuCake, LuKeyRound } from 'react-icons/lu'
+import { Link } from '@nextui-org/react'
+import { LuDot } from 'react-icons/lu'
 
 export type PostPreviewProps = {
   author: string
@@ -20,7 +18,11 @@ export const PostPreview = ({ avatar, author }: PostPreviewProps) => {
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed convallis est libero, eget egestas odio dignissim
         vitae.
       </p>
-      <p className="text-xs text-foreground/60">4 minute read</p>
+      <span className="flex gap-x-1 text-xs text-foreground/60 items-center">
+        <p>2nd January, 2024</p>
+        <LuDot aria-hidden />
+        <p>4 minute read</p>
+      </span>
     </div>
   )
 }

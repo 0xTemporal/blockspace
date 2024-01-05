@@ -372,14 +372,17 @@ function useDraggableBlockMenu(editor: LexicalEditor, anchorElem: HTMLElement, i
   return createPortal(
     <>
       <div
-        className="cursor-grab active:cursor-grabbing w-6 h-6 px-2 opacity-0 absolute left-1 top-2 will-change-transform"
+        className="cursor-grab active:cursor-grabbing w-6 h-6 px-2 opacity-0 absolute left-1 top-1 will-change-transform"
         ref={menuRef}
         draggable={true}
         onDragStart={onDragStart}
         onDragEnd={onDragEnd}
       >
         <LuGripVertical
-          className={cn('opacity-0 absolute left-0 top-0 pointer-events-none', isEditable && 'opacity-30')}
+          className={cn(
+            'opacity-0 absolute left-0 top-0 pointer-events-none text-foreground',
+            isEditable && 'opacity-30',
+          )}
         />
       </div>
       <div

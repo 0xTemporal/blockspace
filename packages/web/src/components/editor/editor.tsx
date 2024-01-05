@@ -113,7 +113,7 @@ export function Editor(): JSX.Element {
                   </div>
                 }
                 placeholder={
-                  <div className="pointer-events-none absolute left-10 top-[21px] text-foreground/60">
+                  <div className="pointer-events-none absolute left-10 top-[31px] text-foreground/60">
                     Enter some text...
                   </div>
                 }
