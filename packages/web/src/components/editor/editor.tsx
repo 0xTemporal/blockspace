@@ -106,7 +106,7 @@ export function Editor(): JSX.Element {
               <HistoryPlugin externalHistoryState={historyState} />
               <RichTextPlugin
                 contentEditable={
-                  <div className="z-0 overflow-auto min-h-[150px] border-none flex relative outline-none">
+                  <div className="z-0 overflow-hidden min-h-[150px] border-none flex relative outline-none">
                     <div className="editor" ref={onRef}>
                       <ContentEditable className="!min-h-[67vh]" />
                     </div>
